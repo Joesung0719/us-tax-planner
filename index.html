@@ -2,7 +2,7 @@
 <style>
 :root{--bg:#f6f7f9;--fg:#1c2230;--card:#fff;--ac:#1d4ed8;--mut:#5b6475;--warn:#fff4d6;--bd:#d9dde5}
 @media(prefers-color-scheme:dark){:root{--bg:#10131a;--fg:#e8ebf2;--card:#1a1f2b;--ac:#7aa2ff;--mut:#9aa3b5;--warn:#3a3217;--bd:#2d3444}}
-:root{--ui-size:100%}html{font-size:calc(18px * var(--ui-size) / 100%)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.7 system-ui,"Noto Sans TC",sans-serif}
+:root{--ui:1}html{font-size:18px;font-size:calc(18px * var(--ui));-webkit-text-size-adjust:100%;text-size-adjust:100%}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.7 system-ui,"Noto Sans TC",sans-serif}
 header,main{max-width:900px;margin:auto;padding:16px}h1{font-size:1.5rem;margin:.3em 0}
 nav{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}nav button{font:inherit;padding:10px 14px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:10px;cursor:pointer}
 nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
@@ -29,7 +29,7 @@ body[data-mode=nra] .m:not(.m-nra),body[data-mode=gc] .m:not(.m-gc),body[data-mo
 .print-only{display:none}
 @media print{
  @page{size:A4;margin:14mm 12mm}
- :root{--ui-size:100%!important;--bg:#fff;--fg:#111;--card:#fff;--mut:#444;--bd:#bbb;--warn:#fff4d6}
+ :root{--ui:1!important;--bg:#fff;--fg:#111;--card:#fff;--mut:#444;--bd:#bbb;--warn:#fff4d6}
  html{font-size:11pt}body{background:#fff;color:#111}
  header .top,.xlink,nav,.cli,.help-btn,.help-text,.idc:not(.on),.no-print{display:none!important}
  .print-only{display:block!important}
@@ -397,7 +397,7 @@ $('cliFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new Fi
 refreshList();
 // ===== 字級:使用者調整後記在這台電腦 =====
 const FONT_LEVELS=[100,112.5,125,137.5,150],FONT_NAMES=['標準','大','較大','特大','最大'],FONT_KEY='usTaxPlanner.fontLevel.v1';let fontLevel=0;
-function applyFont(){document.documentElement.style.setProperty('--ui-size',FONT_LEVELS[fontLevel]+'%');$('fsVal').textContent=FONT_NAMES[fontLevel]}
+function applyFont(){document.documentElement.style.setProperty('--ui',String(FONT_LEVELS[fontLevel]/100));$('fsVal').textContent=FONT_NAMES[fontLevel]}
 function changeFont(d){fontLevel=Math.min(FONT_LEVELS.length-1,Math.max(0,fontLevel+d));try{localStorage.setItem(FONT_KEY,String(fontLevel))}catch(e){}applyFont()}
 try{const fv=parseInt(localStorage.getItem(FONT_KEY),10);if(fv>=0&&fv<FONT_LEVELS.length)fontLevel=fv}catch(e){}applyFont();
 $('fsDn').onclick=()=>changeFont(-1);$('fsUp').onclick=()=>changeFont(1);
