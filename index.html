@@ -25,7 +25,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <div class="ids">
 <button class="res idc" data-id="nra"><b>非美國人</b><br><small>在美國持有資產、非美國公民、非美國稅務居民(例如台灣人)。</small></button>
 <button class="res idc" data-id="gc"><b>綠卡持有者</b><br><small>美國合法永久居民(LPR)。所得稅上是美國居民,全球所得課稅。</small></button>
-<button class="res idc" data-id="usc" disabled><b>美國公民</b><br><small>即將推出</small></button></div>
+<button class="res idc" data-id="usc"><b>美國公民</b><br><small>含在美出生、歸化,或父母為美國公民而取得國籍者。不論住在哪裡,都就全球所得課稅。</small></button></div>
 
 <div class="m m-nra">
 <h3>非美國人:稅務身分判定</h3>
@@ -54,6 +54,19 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <label>過去 15 個稅務年度中,有幾個年度持有綠卡?</label><input id="ltry" type="number" min="0" max="15" value="5">
 <div class="res" id="rltr"></div>
 <small>依 Form 8854 說明:過去 15 個稅務年度中至少 8 年是永久居民即為長期居民;依租稅協定被當作外國居民(且未放棄協定待遇)的年度不算。一年中只持有部分時間是否算一整年:<span class="tag">待確認</span>(一般理解為算,原文未核)。</small>
+</div>
+
+<div class="m m-usc">
+<h3>美國公民:稅務身分重點</h3>
+<p><b>所得稅:</b>美國依「國籍」課稅。美國公民不論住在美國、台灣或其他國家,都就<b>全球所得</b>申報 Form 1040(IRS「U.S. citizens and resident aliens abroad」)。沒有天數測試,也不會因為長期住台灣而變成非居民。</p>
+<div class="tbl"><table>
+<tr><th>情況</th><th>重點</th></tr>
+<tr><td>同時有中華民國國籍(雙重國籍)</td><td>美國仍視為美國公民課稅;台美無所得稅協定,兩邊各依自己的法律課稅。</td></tr>
+<tr><td>在美國出生、從小住台灣(常被稱為「意外的美國人」)</td><td>一樣有美國申報義務(含 FBAR、8938)。過去沒報的,可評估 IRS 的補報程序(見「申報義務清單」)。</td></tr>
+<tr><td>住在台灣、有台灣薪資</td><td>可選擇外國勞務所得排除(FEIE,2026 上限 $132,900)或外國稅額扣抵,見「所得稅」分頁。</td></tr>
+<tr><td>遺產與贈與稅</td><td>美國公民不論居籍在哪,都就<b>全球遺產</b>課稅,適用 $15,000,000 基本免稅額(2026)。</td></tr>
+<tr><td>放棄美國國籍</td><td>放棄後才停止美國公民的稅務義務,並可能適用離境稅,見「離境與放棄身分」。</td></tr>
+</table></div>
 </div>
 </section>
 
@@ -109,8 +122,11 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <small>台灣公司股利是否屬「合格股利」:台灣無租稅協定,一般不符合,較保守做法是填在上一格 <span class="tag">待確認</span>。PFIC(台灣基金)的利得不要填在這格。</small>
 <label>以上所得中,屬台灣等外國來源的金額</label><input id="if" type="number" min="0" value="30000">
 <label>已繳外國(例如台灣)所得稅</label><input id="it" type="number" min="0" value="2000">
+<label>以上薪資中,在國外工作賺的薪資(外國勞務所得)</label><input id="ife" type="number" min="0" value="0">
+<label>FEIE 符合資格的天數(0=不適用;全年符合填 365)</label><input id="fd" type="number" min="0" max="366" value="0">
+<small>FEIE 資格(IRC §911(d)):稅務住所在外國,且 (1) 美國公民整個稅務年度為外國的「善意居民」,或 (2) 公民或居民在任何連續 12 個月內在外國滿 330 整天。綠卡持有者只能用 330 天測試(善意居民測試在條文中限公民;協定國例外不適用台灣)。上限按符合天數比例計算。</small>
 <div class="res" id="ri"></div>
-<div class="warn">簡化說明:採標準扣除額(單身 $16,100、合併 $32,200);外國稅額扣抵僅以「外國來源所得 ÷ 應稅所得 × 美國所得稅」估上限,未區分被動/一般類別、未分攤費用;用不完可往前 1 年、往後 10 年結轉(Pub 514)。淨投資所得稅 3.8%(門檻 單身 $200,000、合併 $250,000,不隨通膨調整)不能用外國稅額扣抵 <span class="tag">一般理解,原文待確認</span>。跨身分年度不能用標準扣除額。</div>
+<div class="warn">FEIE 與外國稅額扣抵:被排除的薪資所對應的外國稅,不能再扣抵(§911(d)(6));被排除的金額仍會把其他所得推到較高稅率(§911(f) 堆疊計算)。本試算已按這兩點處理。<br>簡化說明:採標準扣除額(單身 $16,100、合併 $32,200);外國稅額扣抵僅以「外國來源所得 ÷ 應稅所得 × 美國所得稅」估上限,未區分被動/一般類別、未分攤費用;用不完可往前 1 年、往後 10 年結轉(Pub 514)。淨投資所得稅 3.8%(門檻 單身 $200,000、合併 $250,000,不隨通膨調整)不能用外國稅額扣抵 <span class="tag">一般理解,原文待確認</span>。跨身分年度不能用標準扣除額。</div>
 <h3>台灣與美國怎麼互動</h3>
 <div class="tbl"><table><tr><th>議題</th><th>重點</th></tr>
 <tr><td>雙重居民</td><td>住在台灣的綠卡持有者,可能同時是台灣與美國的稅務居民。台美沒有生效的所得稅協定,沒有「居民身分決勝條款」可用,兩邊各依自己的法律課稅。</td></tr>
@@ -137,6 +153,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <small>夫妻「贈與分割」(§2513)要求雙方都是美國公民或居民,非居籍贈與人不能用。年度免稅額 2026:$19,000;非美國公民配偶 $194,000(IRS FAQ)。無終身贈與抵免。稅率表沿用遺產稅表(§2502,待確認)。僅單一受贈人、單年度簡化計算;多年度累計贈與待確認。</small>
 </div>
 <div class="m m-gc m-usc">
+<p class="m m-usc">美國公民不論住在哪裡,都就全球遺產課美國遺產稅。住在國外的美國公民過世時,美國境內財產要過戶,可能需要向 IRS 申請「transfer certificate」(即使不用報 706,也可用宣誓書方式申請)。</p>
 <p class="m m-gc">以下假設你在美國<b>有居籍</b>(多數綠卡持有者如此)。若長期住台灣、可能沒有美國居籍,請改用「非美國人」的 706-NA 試算比較。</p>
 <h3>遺產稅(Form 706)</h3>
 <p>美國公民與有美國居籍者,就<b>全球遺產</b>課稅;2026 年基本免稅額 $15,000,000(Rev. Proc. 2025-32;Form 706 說明),相當於統一抵免 $5,945,800。贈與與遺產共用同一個終身額度。</p>
@@ -180,6 +197,8 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <tr><td>持有台灣公司一定比例股權</td><td>Form 5471</td><td><span class="tag">門檻待確認</span></td></tr>
 <tr><td>贈與超過年度免稅額</td><td>Form 709</td><td>隔年 4/15(可延)</td></tr>
 <tr><td>死亡時全球遺產+累計應稅贈與超過 $15,000,000,或要移轉 DSUE</td><td>Form 706</td><td>死亡後 9 個月;Form 4768 可延 6 個月</td></tr>
+<tr class="m m-usc"><td>放棄美國國籍</td><td>Form 8854(隨當年所得稅申報書);國務院 Certificate of Loss of Nationality</td><td>所得稅申報期限;未報或不實罰 $10,000</td></tr>
+<tr class="m m-usc"><td>住在國外、過去漏報(非故意)</td><td>Streamlined Foreign Offshore Procedures:補最近 3 年申報書、最近 6 年 FBAR,附 Form 14653 非故意聲明</td><td>資格:最近 3 年中任一年在美國境外滿 330 整天且在美無住所;符合者不罰</td></tr>
 <tr class="m m-gc"><td>放棄綠卡(長期居民)</td><td>Form 8854(隨當年所得稅申報書)、移民局 Form I-407</td><td>所得稅申報期限;未報或不實罰 $10,000</td></tr>
 </table></div>
 <small>來源:IRS「Comparison of Form 8938 and FBAR requirements」、「U.S. citizens and resident aliens abroad」、Form 3520/8621/706/8854 說明、Rev. Proc. 2025-32。</small>
@@ -189,6 +208,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <section id="s6"><h2>離境與放棄身分</h2>
 <div class="m m-gc m-usc">
 <p class="m m-gc">綠卡持有者放棄綠卡(或被認定放棄)時,若是<b>長期居民</b>(過去 15 年中至少 8 年持綠卡),就是稅法上的「expatriate」;再符合下列任一條件,就成為「covered expatriate」,要繳<b>離境稅</b>。</p>
+<p class="m m-usc">美國公民放棄國籍,就是稅法上的「expatriate」(不需要滿幾年)。放棄日期原則上是在美國領事官員前宣誓放棄的日期,但要等國務院核發「喪失國籍證明」(CLN)才確定(IRC §877A(g)(4))。再符合下列任一條件,就成為「covered expatriate」,要繳<b>離境稅</b>。</p>
 <div class="tbl"><table><tr><th>covered expatriate 條件(任一)</th><th>2026 數字</th></tr>
 <tr><td>離境前 5 年平均每年聯邦所得稅淨額超過門檻</td><td>$211,000(2025 為 $206,000)</td></tr>
 <tr><td>離境日淨資產</td><td>$2,000,000 以上(法定,不調整)</td></tr>
@@ -200,7 +220,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <label>全部資產的稅務成本</label><input id="xb" type="number" min="0" value="1500000">
 <label class="m m-gc">成為美國居民那天,這些資產的市價(沒有或不知道就留空)</label><input class="m m-gc" id="xr" type="number" min="0" value="">
 <div class="res" id="rx"></div>
-<div class="warn">算法(IRC §877A):covered expatriate 的全部資產視為在離境前一天按市價出售,利得扣除排除額($910,000,2026)後併入當年所得課稅。<span class="m m-gc">長期居民在成為美國居民時已持有的資產,為了算離境稅,成本可用「成為居民那天的市價」(§877A(h)(2),可選擇不適用,選了不能撤回)。</span>延後給付的退休金、特定遞延帳戶、非授與人信託另有規則(例如 30% 扣繳)。例外:出生時即具雙重國籍等情形(Form 8854 說明)。
+<div class="warn">算法(IRC §877A):covered expatriate 的全部資產視為在離境前一天按市價出售,利得扣除排除額($910,000,2026)後併入當年所得課稅。<span class="m m-gc">長期居民在成為美國居民時已持有的資產,為了算離境稅,成本可用「成為居民那天的市價」(§877A(h)(2),可選擇不適用,選了不能撤回)。</span>延後給付的退休金、特定遞延帳戶、非授與人信託另有規則(例如 30% 扣繳)。<span class="m m-usc">例外(Form 8854 說明;§877A(g)(1)(B)):出生時同時取得美國與他國國籍、仍是該國公民並在該國按居民課稅,且離境年度為止的 15 年中為美國居民不超過 10 年;或 18½ 歲前放棄且美國居民不超過 10 年。這兩種例外只免除「所得稅門檻」與「淨資產」兩項,仍須證明 5 年合規。</span><span class="m m-usc"><br>過去沒報稅、已放棄國籍的前公民,若淨資產低於 $2,000,000、離境年度及前 5 年稅額合計不超過 $25,000,且屬非故意,可用 IRS「Relief procedures for certain former citizens」補報 6 年,不罰、不算 covered expatriate。<br>國務院辦理放棄國籍的手續費:新聞報導 2026 年 3 月由 $2,350 降為 $450 <span class="tag">二手來源,待確認官方公告</span>;須在駐外使領館面談,至少一次親自到場並宣誓。</span>
 <br>試算稅額以「全部利得適用長期資本利得最高 20%」粗估,實際稅率視資產種類、當年其他所得而定;是否另加淨投資所得稅 <span class="tag">待確認</span>。
 <br><b>對繼承人的影響:</b>covered expatriate 之後贈與或遺贈給美國公民或居民,受贈人每年超過年度免稅額($19,000)的部分要繳 40% 的稅(IRC §2801,由受贈人繳)。</div>
 </div></section>
@@ -211,7 +231,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <li>股票、ETF 若是美國公司股份,屬遺產稅美國 situs;改持外國註冊的基金或其他安排是否合適,須與美國稅務專業人員確認(待確認,本工具不提供建議)。</li>
 <li>生前贈與:美國股票等無形資產一般不課美國贈與稅,但台灣贈與稅另計(年免稅額與稅率待逐條對台灣原文)。</li>
 <li>台灣端:境外財產依所在地國已納稅額,可依遺產及贈與稅法 §11 扣抵(需完稅憑證與領事簽證),細節待確認。</li>
-<li>綠卡持有者請切換身分查看;美國公民之情況為後續階段。</li></ul>
+<li>綠卡持有者與美國公民請在「身分判定」切換身分查看。</li></ul>
 </div>
 <div class="m m-gc">
 <ul><li><b>先確認居籍:</b>綠卡持有者的遺產稅適用美國人($15,000,000)還是非居籍外國人($13,000 抵免)規則,取決於居籍,不是綠卡本身。長期住台灣者兩種結果都要估。</li>
@@ -220,6 +240,15 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <li><b>帳戶申報:</b>FBAR 與 Form 8938 是資訊申報,沒有稅也要報;漏報罰則重。</li>
 <li><b>放棄綠卡前:</b>先算是否已滿 8 年長期居民、是否達 $2,000,000 淨資產或所得稅門檻;離境後對美國子女的贈與與遺贈可能被課 40%(§2801)。</li>
 <li><b>台灣端同時課稅:</b>經常居住台灣的國民,台灣遺贈稅也就全球財產課;兩邊的扣抵規則不同,稅額不在本頁試算。</li>
+<li>本頁只提供規則與粗估,不提供個別安排建議。</li></ul>
+</div>
+<div class="m m-usc">
+<ul><li><b>住在台灣也要報美國稅:</b>美國公民依國籍課稅;台灣薪資可用 FEIE 或外國稅額扣抵減少重複課稅,但台灣的利息、股利、基金、保單仍要依美國規則處理。</li>
+<li><b>終身額度共用:</b>贈與與遺產共用 $15,000,000(2026);給子女每人每年 $19,000 內免申報,夫妻都是美國公民或居民可以分割贈與。</li>
+<li><b>配偶不是美國公民:</b>遺產留給配偶要用 QDOT 才能扣除;生前贈與給配偶每年上限 $194,000(2026)。</li>
+<li><b>台灣金融商品:</b>台灣基金、ETF 多為 PFIC;台灣儲蓄險可能不符合 §7702,並有 1% 保費貨物稅;規劃前先確認美國端的處理。</li>
+<li><b>考慮放棄國籍前:</b>先算是否會成為 covered expatriate;出生即雙重國籍且在美居住不長的人可能適用例外;放棄後對美國親屬的贈與與遺贈,受贈人可能要繳 40%(§2801)。</li>
+<li><b>台灣端同時課稅:</b>經常居住台灣的中華民國國民,台灣遺贈稅就全球財產課;放棄中華民國國籍未滿 2 年仍按國民課。台灣稅額不在本頁試算。</li>
 <li>本頁只提供規則與粗估,不提供個別安排建議。</li></ul>
 </div></section>
 </main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。數字依 IRS、IRC 條文與全國法規資料庫於 2026-11-04 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。</footer>
@@ -232,6 +261,7 @@ const Y2026={ // Rev. Proc. 2025-32
      m:[[0,.10],[24800,.12],[100800,.22],[211400,.24],[403550,.32],[512450,.35],[768700,.37]]},
  cg:{s:[49450,545500],m:[98900,613700]},
  niit:{s:200000,m:250000}, // 不隨通膨調整
+ feie:132900,
  bea:15000000,annual:19000,ncSpouse:194000,exitExcl:910000,exitAvgTax:211000,exitNetWorth:2000000};
 // ===== 計算 =====
 function tentativeTax(x){x=Math.max(0,x);let b=BRACKETS[0];for(const r of BRACKETS){if(x>r[0])b=r;}return Math.round(b[1]+(x-b[0])*b[2]);}
@@ -241,13 +271,18 @@ function giftTaxNRNC(taxableGifts){const t=tentativeTax(taxableGifts);return{tax
 function substantialPresence(d0,d1,d2){const w=d0+d1/3+d2/6;return{weighted:w,meets:d0>=31&&w>=183};}
 function withhold(amount,rate){return Math.round(amount*rate);}
 function ordTax(x,st){const br=Y2026.br[st];let t=0;for(let i=0;i<br.length;i++){const lo=br[i][0],hi=i+1<br.length?br[i+1][0]:Infinity;if(x>lo)t+=(Math.min(x,hi)-lo)*br[i][1];}return t;}
-function incomeTaxUS(st,wages,invOrd,pref,foreignInc,foreignTax){
- const agi=wages+invOrd+pref,ti=Math.max(0,agi-Y2026.std[st]),p=Math.min(pref,ti),o=ti-p,[c0,c15]=Y2026.cg[st];
+function regTax(ti,pref,st){const p=Math.min(pref,ti),o=ti-p,[c0,c15]=Y2026.cg[st];
  const at0=Math.max(0,Math.min(ti,c0)-o),at15=Math.max(0,Math.min(ti,c15)-Math.max(o,c0)),at20=p-at0-at15;
- const reg=ordTax(o,st)+at15*.15+at20*.20;
+ return ordTax(o,st)+at15*.15+at20*.20;}
+function feieAmount(foreignEarned,days){return Math.min(foreignEarned,Y2026.feie*Math.min(days,365)/365);}
+function incomeTaxUS(st,wages,invOrd,pref,foreignInc,foreignTax,foreignEarned=0,feieDays=0){
+ const feie=feieDays>0?Math.min(feieAmount(foreignEarned,feieDays),wages,foreignInc):0;
+ const agi=wages-feie+invOrd+pref,ti=Math.max(0,agi-Y2026.std[st]);
+ const reg=feie>0?regTax(ti+feie,pref,st)-ordTax(feie,st):regTax(ti,pref,st); // §911(f) 堆疊
+ foreignTax=foreignInc>0?foreignTax*(foreignInc-feie)/foreignInc:foreignTax;foreignInc-=feie; // §911(d)(6)
  const niit=.038*Math.max(0,Math.min(invOrd+pref,agi-Y2026.niit[st]));
  const limit=ti>0?reg*Math.min(1,foreignInc/ti):0,ftc=Math.min(foreignTax,limit);
- return{agi,ti,reg:Math.round(reg),niit:Math.round(niit),limit:Math.round(limit),ftc:Math.round(ftc),total:Math.round(reg-ftc+niit),carry:Math.round(Math.max(0,foreignTax-ftc))};}
+ return{feie:Math.round(feie),agi,ti,reg:Math.round(reg),niit:Math.round(niit),limit:Math.round(limit),ftc:Math.round(ftc),total:Math.round(reg-ftc+niit),carry:Math.round(Math.max(0,foreignTax-ftc))};}
 function estateUS(gross,ded,toSpouse,spouse,adjGifts,dsue){
  const marital=(spouse==='c'||spouse==='q')?Math.min(toSpouse,Math.max(0,gross-ded)):0;
  const taxable=Math.max(0,gross-ded-marital),base=taxable+adjGifts,tent=tentativeTax(base),aea=Y2026.bea+dsue,credit=tentativeTax(aea);
@@ -262,7 +297,7 @@ function exitTax(nw,avgTax,cert,fmv,basis,fmvAtRes,isGC){
  const covered=nw>=Y2026.exitNetWorth||avgTax>Y2026.exitAvgTax||cert==='n';
  const b=(isGC&&fmvAtRes>0)?Math.max(basis,fmvAtRes):basis,gain=Math.max(0,fmv-b),taxable=Math.max(0,gain-Y2026.exitExcl);
  return{covered,basis:b,gain,taxable,approx:Math.round(taxable*.20)};}
-if(typeof module!=='undefined')module.exports={tentativeTax,estate706NA,substantialPresence,ordTax,incomeTaxUS,estateUS,giftUS,exitTax,Y2026};
+if(typeof module!=='undefined')module.exports={feieAmount,regTax,tentativeTax,estate706NA,substantialPresence,ordTax,incomeTaxUS,estateUS,giftUS,exitTax,Y2026};
 // ===== 介面 =====
 if(typeof document!=='undefined'){
 const $=id=>document.getElementById(id),fmt=n=>'$'+Math.round(n).toLocaleString('en-US'),v=id=>+$(id).value||0;
@@ -284,8 +319,8 @@ function calc(){
  const g=v('gf'),ex=+$('gs').value,tg=Math.max(0,g-ex);
  $('r4').innerHTML='應稅贈與:'+fmt(tg)+(tg>0?'<br>贈與稅約:'+fmt(giftTaxNRNC(tg).tax)+'(待確認 §2502)':'<br>未超過免稅額,但仍可能需申報 709-NA(待確認)');
  const ly=v('ltry');$('rltr').innerHTML=ly>=8?'<b>已是長期居民</b>:放棄綠卡時適用離境稅規則(見「離境與放棄身分」)。':'目前不是長期居民(還差 '+(8-ly)+' 年);在此之前放棄綠卡不適用離境稅。';
- const it=incomeTaxUS($('fs').value,v('iw'),v('ii'),v('ip'),v('if'),v('it'));
- $('ri').innerHTML='調整後總所得:'+fmt(it.agi)+'<br>應稅所得(扣標準扣除額後):'+fmt(it.ti)+'<br>一般所得稅(含資本利得稅率):'+fmt(it.reg)+'<br>外國稅額扣抵上限(簡化):'+fmt(it.limit)+',可扣抵 '+fmt(it.ftc)+(it.carry>0?'(未用 '+fmt(it.carry)+' 可結轉)':'')+'<br>淨投資所得稅 3.8%:'+fmt(it.niit)+'<br><b>估計聯邦稅:'+fmt(it.total)+'</b>';
+ const it=incomeTaxUS($('fs').value,v('iw'),v('ii'),v('ip'),v('if'),v('it'),v('ife'),v('fd'));
+ $('ri').innerHTML=(it.feie>0?'FEIE 排除:'+fmt(it.feie)+'<br>':'')+'調整後總所得:'+fmt(it.agi)+'<br>應稅所得(扣標準扣除額後):'+fmt(it.ti)+'<br>一般所得稅(含資本利得稅率):'+fmt(it.reg)+'<br>外國稅額扣抵上限(簡化):'+fmt(it.limit)+',可扣抵 '+fmt(it.ftc)+(it.carry>0?'(未用 '+fmt(it.carry)+' 可結轉)':'')+'<br>淨投資所得稅 3.8%:'+fmt(it.niit)+'<br><b>估計聯邦稅:'+fmt(it.total)+'</b>';
  const es=estateUS(v('eg'),v('ed'),v('esa'),$('esp').value,v('eat'),v('eds'));
  $('re').innerHTML='需申報 706:'+(es.mustFile?'是':'否(未超過 $15,000,000;要移轉 DSUE 仍須申報)')+'<br>婚姻扣除:'+fmt(es.marital)+($('esp').value==='n'&&v('esa')>0?'(非公民配偶未放入 QDOT,不能扣)':'')+'<br>課稅遺產:'+fmt(es.taxable)+'<br>加計生前應稅贈與後稅基:'+fmt(es.base)+'<br>稅前稅額:'+fmt(es.tent)+'<br>統一抵免(含 DSUE):'+fmt(es.credit)+'<br><b>應納遺產稅:'+fmt(es.tax)+'</b>';
  const gu=giftUS(v('ga'),$('gr').value,$('gsp').value,v('gp'));
@@ -294,6 +329,6 @@ function calc(){
  $('rx').innerHTML=(document.body.dataset.mode==='gc'&&v('ltry')<8?'提醒:依「身分判定」填的年數,你還不是長期居民,目前放棄綠卡不適用以下離境稅。<br>':'')+'是否為 covered expatriate:<b>'+(xt.covered?'是':'否')+'</b>'+(xt.covered?'<br>計算用成本:'+fmt(xt.basis)+'<br>視同出售利得:'+fmt(xt.gain)+'<br>扣除排除額 $910,000 後應稅利得:'+fmt(xt.taxable)+'<br><b>粗估離境稅(20%):'+fmt(xt.approx)+'</b>':'<br>不適用視同出售;仍須提交 Form 8854。');
 }
 document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));
-const h=location.hash.slice(1);setMode(['nra','gc'].includes(h)?h:'nra');show('s0');
+const h=location.hash.slice(1);setMode(['nra','gc','usc'].includes(h)?h:'nra');show('s0');
 }
 </script></body></html>
