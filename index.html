@@ -39,9 +39,10 @@ body[data-mode=nra] .m:not(.m-nra),body[data-mode=gc] .m:not(.m-gc),body[data-mo
  header,main,footer{max-width:none;padding:0}
  section{display:block!important;border:0;padding:0;margin:0 0 5mm}
  h2,h3,h4,label{break-after:avoid;page-break-after:avoid}
- .res,.warn,tr,.idc,.pg,p,li{break-inside:avoid;page-break-inside:avoid}input,select{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;background:#fff;-webkit-appearance:none;appearance:none}
+ .res,.warn,tr,.idc,.kw,li{break-inside:avoid;page-break-inside:avoid}p,li{orphans:3;widows:3}
+ .warn,.kw{display:inline-block;width:100%}/* Safari 不一定遵守 break-inside:avoid,inline-block 整塊不拆 */input,select{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;background:#fff;-webkit-appearance:none;appearance:none}
  body.print-simple main{display:none!important}
- body:not(.print-simple) main{break-before:page;page-break-before:always}
+ body:not(.print-simple) main{margin-top:6mm;border-top:2px solid #111;padding-top:2mm}
  .ph{border-bottom:2px solid #111;padding-bottom:4px;margin-bottom:8px}.ph h1{font-size:16pt;margin:0}.ph .row{display:flex;flex-wrap:wrap;gap:4px 24px;font-size:10pt}
  #printSummary h2{font-size:13pt;margin:10px 0 4px;border-bottom:1px solid #999}#printSummary table{font-size:10pt}
 }
@@ -455,9 +456,9 @@ function preparePrint(mode){const m=document.body.dataset.mode,today=new Date().
    const name=lb.childNodes[0]?lb.childNodes[0].textContent:lb.textContent;const val=x.tagName==='SELECT'?x.options[x.selectedIndex].text:(x.value===''?'(未填)':(+x.value).toLocaleString('en-US'));
    rows+='<tr><td>'+esc(name)+'</td><td>'+esc(val)+'</td></tr>'});
   let res='';[...sec.querySelectorAll('.res[id]')].forEach(r=>{if(inMode(r,m)&&r.innerHTML.trim())res+='<div class="res">'+r.innerHTML+'</div>'});
-  if(rows||res)out+='<div class="pg"><h2>'+esc(sid==='s1'?$('bs1').textContent:tn)+'</h2>'+(rows?'<div class="tbl"><table><tr><th>輸入項目</th><th>數值</th></tr>'+rows+'</table></div>':'')+res+'</div>'});
+  if(rows||res)out+='<div class="kw"><h2>'+esc(sid==='s1'?$('bs1').textContent:tn)+'</h2>'+(rows?'<div class="tbl"><table><tr><th>輸入項目</th><th>數值</th></tr>'+rows+'</table></div>':'')+(rows?'':res)+'</div>'+(rows?res:'')});
  const pend=[...document.querySelectorAll('main .tag')].filter(t=>t.textContent.includes('待確認')&&inMode(t,m)&&!(m==='nra'&&t.closest('#s6'))).length;
- out+='<div class="pg"><div class="warn">本報告共有 '+pend+' 處標示「待確認」(尚未對官方來源核實)'+(mode==='simple'?',詳見詳細版或網頁。':',請見各分頁內文。')+'數字為示意估算,實際以 IRS 規定與申報結果為準。</div>';
+ out+='<div class="kw"><div class="warn">本報告共有 '+pend+' 處標示「待確認」(尚未對官方來源核實)'+(mode==='simple'?',詳見詳細版或網頁。':',請見各分頁內文。')+'數字為示意估算,實際以 IRS 規定與申報結果為準。</div>';
  out+='<p><small>'+FOOT+'</small></p>';
  $('printSummary').innerHTML='<h2 style="font-size:14pt">重點摘要</h2>'+out+'</div>'}
 function printReport(mode){preparePrint(mode);requestAnimationFrame(()=>setTimeout(()=>window.print(),150))}
