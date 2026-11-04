@@ -16,10 +16,12 @@ label{display:block;margin:12px 0 4px;font-weight:600}input,select{font:inherit;
 .idc.on{outline:3px solid var(--ac)}.idc:disabled{opacity:.6;cursor:default}
 body[data-mode=nra] .m:not(.m-nra),body[data-mode=gc] .m:not(.m-gc),body[data-mode=usc] .m:not(.m-usc){display:none}
 .top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}.xlink{font-size:.95rem;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--ac);color:var(--ac);text-decoration:none;white-space:nowrap}.xlink:hover{background:var(--ac);color:#fff}
-@media print{.xlink,nav{display:none}}
+.cli{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px;margin:10px 0;padding:10px 12px;background:var(--card);border:1px solid var(--bd);border-radius:12px}.cli label{margin:0 0 4px;font-size:.95rem}.cli>div{flex:1 1 180px}.cli button{font:inherit;padding:10px 14px;border:1px solid var(--ac);background:var(--card);color:var(--ac);border-radius:10px;cursor:pointer;white-space:nowrap}.cli button:hover{background:var(--ac);color:#fff}#cliMsg{flex-basis:100%;margin:0}
+@media print{.xlink,nav,.cli button,.cli select,#cliMsg,.cliPick{display:none}}
 footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem}small{color:var(--mut)}
 </style></head><body data-mode="nra">
 <header><div class="top"><h1>美國稅務試算</h1><a class="xlink" href="https://joesung0719.github.io/cfp-planner/" target="_blank" rel="noopener">台灣退休與傳承試算 ↗</a></div><small>資料基準:2026-11-04 查證(稅額以 2026 稅務年度數字為準)。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
+<div class="cli"><div><label for="cliName">客戶姓名</label><input id="cliName" type="text" placeholder="例:王小明" autocomplete="off"></div><button type="button" id="cliSave" title="把目前所有欄位與身分存在這台電腦的瀏覽器(不會上傳)">儲存</button><div class="cliPick"><label for="cliList">已儲存的客戶</label><select id="cliList"><option value="">(選擇後自動載入)</option></select></div><button type="button" id="cliDel" title="刪除目前選取的客戶資料">刪除</button><button type="button" id="cliNew" title="清空欄位,回到預設值">新客戶</button><p id="cliMsg"><small>資料只存在這台電腦的瀏覽器,不會上傳;換電腦或清除瀏覽器資料就會消失。</small></p></div>
 <nav id="nav"></nav></header><main>
 
 <section id="s0"><h2>身分判定</h2>
@@ -331,6 +333,27 @@ function calc(){
  $('rx').innerHTML=(document.body.dataset.mode==='gc'&&v('ltry')<8?'提醒:依「身分判定」填的年數,你還不是長期居民,目前放棄綠卡不適用以下離境稅。<br>':'')+'是否為 covered expatriate:<b>'+(xt.covered?'是':'否')+'</b>'+(xt.covered?'<br>計算用成本:'+fmt(xt.basis)+'<br>視同出售利得:'+fmt(xt.gain)+'<br>扣除排除額 $910,000 後應稅利得:'+fmt(xt.taxable)+'<br><b>粗估離境稅(20%):'+fmt(xt.approx)+'</b>':'<br>不適用視同出售;仍須提交 Form 8854。');
 }
 document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));
+// ===== 客戶資料(只存在本機瀏覽器 localStorage,不上傳) =====
+const STORE_KEY='usTaxPlanner.clients.v1';
+const fields=()=>[...document.querySelectorAll('main input,main select')].filter(x=>x.id);
+const DEFAULTS={};fields().forEach(x=>DEFAULTS[x.id]=x.value);
+function readStore(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}}catch(e){return null}}
+function writeStore(o){try{localStorage.setItem(STORE_KEY,JSON.stringify(o));return true}catch(e){return false}}
+function cliMsg(t){$('cliMsg').innerHTML='<small>'+t+'</small>'}
+function refreshList(sel){const s=readStore()||{},l=$('cliList');l.length=1;
+ Object.keys(s).sort((a,b)=>a.localeCompare(b,'zh-Hant')).forEach(n=>{const o=document.createElement('option');o.value=o.textContent=n;l.appendChild(o)});l.value=sel&&s[sel]?sel:''}
+$('cliSave').onclick=()=>{const n=$('cliName').value.trim();if(!n){cliMsg('請先輸入客戶姓名,再按儲存。');$('cliName').focus();return}
+ const s=readStore();if(s===null){cliMsg('這個瀏覽器無法儲存(可能是無痕模式或已封鎖網站資料)。');return}
+ if(s[n]&&!confirm('「'+n+'」已存在,要覆蓋嗎?'))return;
+ const data={};fields().forEach(x=>data[x.id]=x.value);s[n]={v:1,mode:document.body.dataset.mode,savedAt:new Date().toISOString(),data};
+ if(writeStore(s)){refreshList(n);cliMsg('已儲存「'+n+'」('+new Date().toLocaleString('zh-TW')+')。只存在這台電腦。')}else cliMsg('儲存失敗:瀏覽器不允許寫入。')};
+$('cliList').onchange=()=>{const n=$('cliList').value;if(!n)return;const r=(readStore()||{})[n];if(!r)return;
+ fields().forEach(x=>{if(x.id in r.data)x.value=r.data[x.id];else if(x.id in DEFAULTS)x.value=DEFAULTS[x.id]});
+ $('cliName').value=n;setMode(['nra','gc','usc'].includes(r.mode)?r.mode:'nra');cliMsg('已載入「'+n+'」(儲存於 '+new Date(r.savedAt).toLocaleString('zh-TW')+')。')};
+$('cliDel').onclick=()=>{const n=$('cliList').value;if(!n){cliMsg('請先在「已儲存的客戶」選擇要刪除的人。');return}
+ if(!confirm('確定刪除「'+n+'」的資料?刪除後無法復原。'))return;const s=readStore()||{};delete s[n];writeStore(s);refreshList();cliMsg('已刪除「'+n+'」。')};
+$('cliNew').onclick=()=>{fields().forEach(x=>{if(x.id in DEFAULTS)x.value=DEFAULTS[x.id]});$('cliName').value='';$('cliList').value='';calc();cliMsg('已清空,回到預設值。')};
+refreshList();
 const h=location.hash.slice(1);setMode(['nra','gc','usc'].includes(h)?h:'nra');show('s0');
 }
 </script></body></html>

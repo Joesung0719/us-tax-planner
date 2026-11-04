@@ -32,5 +32,8 @@ sub('<body data-mode="nra">', '<body data-mode="nra">' + banner)
 # 3) 連到台灣退休與傳承試算的測試版,不連正式版
 sub("https://joesung0719.github.io/cfp-planner/", "https://joesung0719.github.io/cfp-planner/trial/")
 
+# 4) 客戶資料儲存鍵與正式版分開(同網域,避免試用者讀到正式版存的資料)
+sub("usTaxPlanner.clients.v1", "usTaxPlanner.trial.clients.v1")
+
 (ROOT / "trial" / "app.html").write_text(html, encoding="utf-8")
 print("OK trial/app.html")
