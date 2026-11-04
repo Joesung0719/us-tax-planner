@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>非美國人 美國稅務試算</title>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>美國稅務試算</title>
 <style>
 :root{--bg:#f6f7f9;--fg:#1c2230;--card:#fff;--ac:#1d4ed8;--mut:#5b6475;--warn:#fff4d6;--bd:#d9dde5}
 @media(prefers-color-scheme:dark){:root{--bg:#10131a;--fg:#e8ebf2;--card:#1a1f2b;--ac:#7aa2ff;--mut:#9aa3b5;--warn:#3a3217;--bd:#2d3444}}
@@ -13,9 +13,15 @@ table{border-collapse:collapse;width:100%;font-size:.95rem}td,th{border:1px soli
 .tag{font-size:.8rem;padding:1px 8px;border-radius:99px;border:1px solid var(--bd);color:var(--mut);white-space:nowrap}
 footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem}small{color:var(--mut)}
 </style></head><body>
-<header><h1>非美國人 美國稅務試算</h1><small>對象:在美國持有資產、非美國公民/非美國稅務居民的人(第一階段)。資料基準:2026-11-03 查證。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
+<header><h1>美國稅務試算</h1><small>資料基準:2026-11-03 查證。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
 <nav id="nav"></nav></header><main>
 <section id="s0"><h2>身分判定</h2>
+<p>先選你的身分類別。目前已開放「非美國人」;另兩類之後上線。</p>
+<div id="ids" style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+<div class="res" style="margin:0"><b>非美國人</b><br><small>在美國持有資產、非美國公民、非美國稅務居民(例如台灣人)。<b>目前開放</b></small></div>
+<div class="res" style="margin:0;opacity:.6"><b>綠卡持有者</b><br><small>即將推出</small></div>
+<div class="res" style="margin:0;opacity:.6"><b>美國公民</b><br><small>即將推出</small></div></div>
+<h3>非美國人:稅務身分判定</h3>
 <p>美國稅務身分分兩套:<b>所得稅</b>看「居民/非居民外國人」,<b>遺產與贈與稅</b>看「居籍(domicile)」。兩者可以不同。</p>
 <label>是否持有美國綠卡(任一時點在當年)?</label><select id="gc"><option value="n">否</option><option value="y">是</option></select>
 <label>今年在美天數</label><input id="d0" type="number" min="0" max="366" value="0">
@@ -78,7 +84,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <li>生前贈與:美國股票等無形資產一般不課美國贈與稅,但台灣贈與稅另計(年免稅額與稅率待逐條對台灣原文)。</li>
 <li>台灣端:境外財產依所在地國已納稅額,可依遺產及贈與稅法 §11 扣抵(需完稅憑證與領事簽證),細節待確認。</li>
 <li>美國人持有台灣保單、綠卡、美國公民之情況為後續階段。</li></ul></section>
-</main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。數字依 IRS 與 IRC 條文於 2026-11-03 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。</footer>
+</main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。目前內容適用「非美國人」身分。數字依 IRS 與 IRC 條文於 2026-11-03 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。</footer>
 <script>
 const BRACKETS=[[0,0,.18],[10000,1800,.20],[20000,3800,.22],[40000,8200,.24],[60000,13000,.26],[80000,18200,.28],[100000,23800,.30],[150000,38800,.32],[250000,70800,.34],[500000,155800,.37],[750000,248300,.39],[1000000,345800,.40]];
 function tentativeTax(x){x=Math.max(0,x);let b=BRACKETS[0];for(const r of BRACKETS){if(x>r[0])b=r;}return Math.round(b[1]+(x-b[0])*b[2]);}
