@@ -16,4 +16,4 @@
 - 這是前端軟性限制:GitHub Pages 是純靜態,懂技術的人可改電腦時間或直接讀原始碼繞過;正式版網址本身也是公開的。要硬性關閉,刪掉 `trial/` 資料夾(或只刪 `trial/app.html`)並推上 main,幾分鐘後該網址就是 404。
 - 正式版 `index.html` 改過後,跑 `python3 tools/build-trial.py` 重新產生 `trial/app.html` 再推上去,測試版才會跟著更新。
 - 本頁沒有任何資料上傳;輸入只在保戶自己的瀏覽器內計算。
-- 正式版有「客戶資料」儲存(2026-11-04 加入):存在該台電腦瀏覽器的 localStorage(鍵 `usTaxPlanner.clients.v1`),不上傳。測試版目前的 `trial/app.html` 尚未包含此功能;之後重跑 build-trial.py 時,儲存鍵會自動改成 `usTaxPlanner.trial.clients.v1`,與正式版分開。
+- 「客戶資料」儲存:存在該台電腦瀏覽器的 localStorage,不上傳。正式版鍵 `usTaxPlanner.clients.v1`,測試版由 build-trial.py 自動改成 `usTaxPlanner.trial.clients.v1`,兩者分開。

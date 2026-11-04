@@ -2,10 +2,13 @@
 <style>
 :root{--bg:#f6f7f9;--fg:#1c2230;--card:#fff;--ac:#1d4ed8;--mut:#5b6475;--warn:#fff4d6;--bd:#d9dde5}
 @media(prefers-color-scheme:dark){:root{--bg:#10131a;--fg:#e8ebf2;--card:#1a1f2b;--ac:#7aa2ff;--mut:#9aa3b5;--warn:#3a3217;--bd:#2d3444}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 system-ui,"Noto Sans TC",sans-serif}
-header,main{max-width:900px;margin:auto;padding:16px}h1{font-size:1.5rem;margin:.3em 0}
-nav{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}nav button{font:inherit;padding:10px 14px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:10px;cursor:pointer}
-nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+:root{--ui:1}html{font-size:18px;font-size:calc(18px * var(--ui));-webkit-text-size-adjust:100%;text-size-adjust:100%}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.7 system-ui,"Noto Sans TC",sans-serif}
+main,.bar{max-width:900px;margin:auto;padding:16px}.bar{padding-bottom:0}h1{font-size:1.5rem;margin:.3em 0}
+header{max-width:900px;margin:8px auto 0;padding:14px 16px;background:#0f172a;color:#fff;border-radius:14px}@media(max-width:932px){header{margin:0;border-radius:0}}
+header h1{font-size:1.4rem;margin:0;line-height:1.3}.ver{background:#f59e0b;color:#0f172a;font-size:.75rem;font-weight:800;padding:3px 10px;border-radius:6px;white-space:nowrap}
+header .sub{color:#94a3b8;font-size:.8rem;margin:6px 0 0;line-height:1.6}header small{color:#94a3b8;font-size:.75rem;display:block;line-height:1.6}
+nav{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0 0;padding:4px;background:#1e293b;border-radius:12px;width:fit-content;max-width:100%}nav button{font:inherit;font-size:.85rem;padding:8px 14px;border:0;background:transparent;color:#cbd5e1;border-radius:8px;cursor:pointer;white-space:nowrap}nav button:hover{color:#fff}
+nav button.on{background:#f59e0b;color:#0f172a;font-weight:700}
 section{display:none;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}section.on{display:block}
 label{display:block;margin:12px 0 4px;font-weight:600}input,select{font:inherit;width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg)}
 .res{margin-top:14px;padding:12px;border-left:4px solid var(--ac);background:var(--bg)}.warn{background:var(--warn);padding:10px 12px;border-radius:8px;margin:12px 0}
@@ -15,12 +18,50 @@ label{display:block;margin:12px 0 4px;font-weight:600}input,select{font:inherit;
 .idc{font:inherit;text-align:left;color:var(--fg);cursor:pointer;margin:0;border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px}
 .idc.on{outline:3px solid var(--ac)}.idc:disabled{opacity:.6;cursor:default}
 body[data-mode=nra] .m:not(.m-nra),body[data-mode=gc] .m:not(.m-gc),body[data-mode=usc] .m:not(.m-usc){display:none}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}.xlink{font-size:.95rem;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--ac);color:var(--ac);text-decoration:none;white-space:nowrap}.xlink:hover{background:var(--ac);color:#fff}
-@media print{.xlink,nav{display:none}}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}.xlink{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:6px;background:#7dd3fc;color:#0f172a;text-decoration:none;white-space:nowrap}.xlink:hover{background:#bae6fd}
+.cli{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin:10px 0;padding:8px 12px;background:var(--card);border:1px solid var(--bd);border-radius:12px;font-size:.85rem}
+.cli .grp{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.cli label.nm{display:flex;align-items:center;gap:6px;margin:0;font-weight:700;white-space:nowrap}
+.cli input[type=text]{width:9em;padding:6px 8px}.cli select{width:auto;max-width:12em;padding:6px}
+.cli button,.fs-ctl{font:inherit;padding:6px 10px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;cursor:pointer;white-space:nowrap;min-height:40px}.cli button:hover{border-color:var(--ac);color:var(--ac)}
+.fs-ctl{display:inline-flex;align-items:center;gap:2px;padding:2px;cursor:default}.fs-ctl button{border:0;min-height:34px;font-weight:700}.fs-val{min-width:3em;text-align:center;font-weight:700}
+.cli .chk{display:flex;align-items:center;gap:6px;margin:0;font-weight:400;cursor:pointer;white-space:nowrap}.cli .chk input{width:18px;height:18px}
+.cli .pdf{font-weight:700;border-color:var(--fg)}.cli .pdf.dark{background:var(--fg);color:var(--bg)}.cli .pdf.dark:hover{opacity:.85;color:var(--bg)}
+#cliMsg{color:#047857;white-space:nowrap}@media(prefers-color-scheme:dark){#cliMsg{color:#6ee7b7}}
+.help-btn{display:inline-flex;align-items:center;justify-content:center;width:1.4em;height:1.4em;margin-left:6px;padding:0;border-radius:99px;border:1px solid #f59e0b;background:transparent;color:#b45309;font:700 .8rem system-ui;cursor:pointer;vertical-align:middle}.help-btn[aria-expanded=true]{background:#f59e0b;color:#111}
+.help-text{font-size:.9rem;color:var(--mut);border-left:3px solid #f59e0b;padding:4px 8px;margin:4px 0;background:var(--bg);border-radius:4px}
+.print-only{display:none}
+@media print{
+ @page{size:A4;margin:14mm 12mm}
+ :root{--ui:1!important;--bg:#fff;--fg:#111;--card:#fff;--mut:#444;--bd:#bbb;--warn:#fff4d6}
+ html{font-size:11pt}body{background:#fff;color:#111}
+ header,.bar,.xlink,nav,.cli,.help-btn,.help-text,.idc:not(.on),.no-print{display:none!important}
+ .print-only{display:block!important}
+ header,main,footer{max-width:none;padding:0}
+ section{display:block!important;border:0;padding:0;margin:0 0 6mm;break-before:page}section#s0{break-before:auto}
+ .res,.warn,tr,.tbl{break-inside:avoid}input,select{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;background:#fff;-webkit-appearance:none;appearance:none}
+ body.print-simple main{display:none!important}
+ .ph{border-bottom:2px solid #111;padding-bottom:4px;margin-bottom:8px}.ph h1{font-size:16pt;margin:0}.ph .row{display:flex;flex-wrap:wrap;gap:4px 24px;font-size:10pt}
+ #printSummary h2{font-size:13pt;margin:10px 0 4px;border-bottom:1px solid #999}#printSummary table{font-size:10pt}
+}
 footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem}small{color:var(--mut)}
 </style></head><body data-mode="nra"><div id="trialBanner" style="background:#fef3c7;border-bottom:2px solid #f59e0b;color:#78350f;font-size:1rem;line-height:1.6;padding:10px 14px;text-align:center"><b>測試版</b>,試用至 <b id="trialEnd"></b><span id="trialLeft"></span>。數字為示意估算,不構成投資、法律或稅務建議。所有計算都在你的瀏覽器內完成,不會上傳你輸入的資料。</div><script>document.getElementById("trialEnd").textContent=TRIAL.expires;document.getElementById("trialLeft").textContent="("+TRIAL.daysText+")";</script>
-<header><div class="top"><h1>美國稅務試算</h1><a class="xlink" href="https://joesung0719.github.io/cfp-planner/trial/" target="_blank" rel="noopener">台灣退休與傳承試算 ↗</a></div><small>資料基準:2026-11-04 查證(稅額以 2026 稅務年度數字為準)。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
-<nav id="nav"></nav></header><main>
+<header><div class="top"><span class="ver">2026 年版</span><h1>美國稅務試算</h1><a class="xlink" href="https://joesung0719.github.io/cfp-planner/trial/" target="_blank" rel="noopener">台灣退休與傳承試算 ↗</a></div><p class="sub">非美國人、綠卡持有者、美國公民:身分判定 ✕ 所得稅 ✕ 遺產與贈與稅 ✕ 申報義務 ✕ 離境稅</p><small>資料基準:2026-11-04 查證(稅額以 2026 稅務年度數字為準)。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small><nav id="nav"></nav></header>
+<div class="bar"><div class="cli">
+<div class="grp"><label class="nm" for="cliName">👤 客戶姓名</label><input id="cliName" type="text" placeholder="例:王小明" autocomplete="off" title="會顯示在列印報告抬頭,也是儲存資料的名稱">
+<span class="fs-ctl" title="調整畫面文字大小,會記在這台電腦"><button type="button" id="fsDn" aria-label="縮小文字">A−</button><span class="fs-val" id="fsVal">標準</span><button type="button" id="fsUp" aria-label="放大文字">A+</button></span>
+<button type="button" id="cliSave" title="把目前所有欄位與身分存在這台電腦的瀏覽器(不會上傳)">💾 儲存</button>
+<select id="cliList" title="讀取已儲存的客戶資料"><option value="">📂 讀取客戶…</option></select>
+<button type="button" id="cliDel" title="刪除目前選取的客戶資料" aria-label="刪除">🗑️</button>
+<button type="button" id="cliExp" title="下載成檔案,可換電腦使用或備份">⬇️ 匯出</button>
+<button type="button" id="cliImp" title="讀取先前匯出的檔案">⬆️ 匯入</button><input type="file" id="cliFile" accept=".json,application/json" hidden>
+<span id="cliMsg"></span></div>
+<div class="grp"><label class="chk"><input type="checkbox" id="showAllHelp"> 顯示全部欄位說明</label>
+<button type="button" class="pdf" id="pdfSimple" title="重點摘要:身分、輸入數字與試算結果,約 1～2 頁">📄 簡易版 PDF</button>
+<button type="button" class="pdf dark" id="pdfDetail" title="重點摘要+目前身分的每個分頁內容,適合列印給客戶">📄 詳細版 PDF(列印用)</button></div>
+</div></div>
+
+<div class="print-only" id="printHead" style="max-width:none"></div><div class="print-only" id="printSummary"></div>
+<main>
 
 <section id="s0"><h2>身分判定</h2>
 <p>先選你的身分類別,其他分頁的內容會跟著切換。</p>
@@ -331,6 +372,96 @@ function calc(){
  $('rx').innerHTML=(document.body.dataset.mode==='gc'&&v('ltry')<8?'提醒:依「身分判定」填的年數,你還不是長期居民,目前放棄綠卡不適用以下離境稅。<br>':'')+'是否為 covered expatriate:<b>'+(xt.covered?'是':'否')+'</b>'+(xt.covered?'<br>計算用成本:'+fmt(xt.basis)+'<br>視同出售利得:'+fmt(xt.gain)+'<br>扣除排除額 $910,000 後應稅利得:'+fmt(xt.taxable)+'<br><b>粗估離境稅(20%):'+fmt(xt.approx)+'</b>':'<br>不適用視同出售;仍須提交 Form 8854。');
 }
 document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));
+// ===== 客戶資料(只存在本機瀏覽器 localStorage,不上傳) =====
+const STORE_KEY='usTaxPlanner.trial.clients.v1',MODES=['nra','gc','usc'],MODE_NAME={nra:'非美國人',gc:'綠卡持有者',usc:'美國公民'};
+const fields=()=>[...document.querySelectorAll('main input,main select')].filter(x=>x.id);
+const DEFAULTS={};fields().forEach(x=>DEFAULTS[x.id]=x.value);
+function readStore(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}}catch(e){return null}}
+function writeStore(o){try{localStorage.setItem(STORE_KEY,JSON.stringify(o));return true}catch(e){return false}}
+let msgT;function cliMsg(t){$('cliMsg').textContent=t;clearTimeout(msgT);msgT=setTimeout(()=>$('cliMsg').textContent='',6000)}
+function refreshList(sel){const s=readStore()||{},l=$('cliList');l.length=1;
+ Object.keys(s).sort((a,b)=>a.localeCompare(b,'zh-Hant')).forEach(n=>{const o=document.createElement('option');o.value=o.textContent=n;l.appendChild(o)});l.value=sel&&s[sel]?sel:''}
+function snapshot(){const data={};fields().forEach(x=>data[x.id]=x.value);return{app:'us-tax-planner',v:1,name:$('cliName').value.trim(),mode:document.body.dataset.mode,savedAt:new Date().toISOString(),data}}
+function restore(r){if(!r||typeof r.data!=='object')throw new Error('檔案格式不符');
+ fields().forEach(x=>{const val=r.data[x.id];if(val!==undefined&&val!==null)x.value=String(val);else if(x.id in DEFAULTS)x.value=DEFAULTS[x.id]});
+ if(r.name)$('cliName').value=r.name;setMode(MODES.includes(r.mode)?r.mode:'nra')}
+$('cliSave').onclick=()=>{const n=$('cliName').value.trim();if(!n){alert('請先輸入客戶姓名,再按儲存。');$('cliName').focus();return}
+ const s=readStore();if(s===null){alert('這個瀏覽器無法儲存(可能是無痕模式或已封鎖網站資料),可改用「匯出」存成檔案。');return}
+ if(s[n]&&!confirm('「'+n+'」已存在,要覆蓋嗎?'))return;s[n]=snapshot();
+ if(writeStore(s)){refreshList(n);cliMsg('✓ 已儲存「'+n+'」')}else alert('儲存失敗:瀏覽器不允許寫入,可改用「匯出」。')};
+$('cliList').onchange=()=>{const n=$('cliList').value;if(!n)return;const r=(readStore()||{})[n];if(!r)return;restore(r);$('cliName').value=n;cliMsg('✓ 已讀取「'+n+'」')};
+$('cliDel').onclick=()=>{const n=$('cliList').value;if(!n){alert('請先在「讀取客戶」選擇要刪除的人。');return}
+ if(!confirm('確定刪除「'+n+'」的資料?刪除後無法復原。'))return;const s=readStore()||{};delete s[n];writeStore(s);refreshList();cliMsg('已刪除「'+n+'」')};
+$('cliExp').onclick=()=>{const r=snapshot(),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));
+ a.download=(r.name||'未命名客戶')+'_美國稅務試算_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)};
+$('cliImp').onclick=()=>$('cliFile').click();
+$('cliFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
+ rd.onload=()=>{try{restore(JSON.parse(rd.result));$('cliList').value='';cliMsg('✓ 已匯入,若要存在這台電腦請再按「儲存」')}catch(err){alert('無法讀取這個檔案:'+err.message)}e.target.value=''};rd.readAsText(f)};
+refreshList();
+// ===== 字級:使用者調整後記在這台電腦 =====
+const FONT_LEVELS=[100,112.5,125,137.5,150],FONT_NAMES=['標準','大','較大','特大','最大'],FONT_KEY='usTaxPlanner.fontLevel.v1';let fontLevel=0;
+function applyFont(){document.documentElement.style.setProperty('--ui',String(FONT_LEVELS[fontLevel]/100));$('fsVal').textContent=FONT_NAMES[fontLevel]}
+function changeFont(d){fontLevel=Math.min(FONT_LEVELS.length-1,Math.max(0,fontLevel+d));try{localStorage.setItem(FONT_KEY,String(fontLevel))}catch(e){}applyFont()}
+try{const fv=parseInt(localStorage.getItem(FONT_KEY),10);if(fv>=0&&fv<FONT_LEVELS.length)fontLevel=fv}catch(e){}applyFont();
+$('fsDn').onclick=()=>changeFont(-1);$('fsUp').onclick=()=>changeFont(1);
+// ===== 欄位說明:每個欄位旁的 ? 可展開;勾「顯示全部欄位說明」全部展開 =====
+const HELP={
+ gc:'當年任何時點持有綠卡,所得稅上就是美國居民(綠卡測試),不必再算天數。',
+ d0:'實質居留測試:今年天數+前一年×1/3+前二年×1/6,合計達 183 天且今年至少 31 天,即為所得稅上的居民。學生、教師等豁免身分的天數可不計。',
+ d1:'前一年在美天數,計算時乘以 1/3。',d2:'前二年在美天數,計算時乘以 1/6。',
+ ltry:'用來判斷是否為「長期居民」;長期居民放棄綠卡才適用離境稅規則。部分年度如何計算,依 Form 8854 說明。',
+ div:'美國公司發給非居民外國人的股利,一般在付款時由券商預扣。',
+ rate:'預扣稅率;非居民外國人股利法定為 30%,台灣目前沒有對美租稅協定稅率可用。',
+ fs:'申報身分決定所得稅級距與標準扣除額。',
+ iw:'綠卡持有者與美國公民就全球所得課稅,台灣的薪資、執業所得也要算進來。',
+ ii:'例如台灣銀行存款利息、房租等投資所得。',ip:'可適用較低資本利得稅率的部分;台灣公司股利見下方說明。',
+ if:'用來計算外國稅額扣抵的上限。',it:'可申請外國稅額扣抵(Form 1116),以上限為限,未用完的可結轉。',
+ ife:'只有在國外工作賺的薪資(外國勞務所得)才能用 FEIE 排除;利息、股利等不行。',
+ fd:'FEIE 排除額依符合資格的天數比例計算;資格條件見下方說明。',
+ ug:'非居籍外國人只就美國 situs 資產課美國遺產稅,哪些資產算美國 situs 見「美國資產清單」分頁。',
+ uw:'用來按「美國 situs 遺產 ÷ 全球遺產」比例計算可扣除的債務與費用。',
+ ud:'填全球合計金額,工具會依比例只扣美國部分。',uo:'只填美國 situs 資產相關的部分。',
+ gf:'非美國人只有美國境內不動產、有形動產的贈與要課美國贈與稅;美國股票等無形資產一般不課。',
+ gs:'受贈人是否為配偶,決定可用的年度免稅額。',
+ eg:'美國公民與在美有居籍者,遺產稅就全球資產計算,台灣的資產也要算進來。',
+ ed:'可從遺產中扣除的債務、喪葬與管理費用、慈善捐贈。',esa:'留給配偶的部分是否能扣除,依配偶身分而定(見下一欄)。',
+ esp:'配偶是美國公民才能無上限婚姻扣除;非美國公民配偶須透過 QDOT 才能扣除。',
+ eat:'生前贈與超過年度免稅額的部分,會用掉終身免稅額度,並在遺產稅計算時加回。',
+ eds:'已過世配偶未用完、且已申報移轉的遺產稅免稅額(DSUE);沒有就填 0。',
+ ga:'美國公民與在美有居籍者,贈與全球資產都要計算美國贈與稅。',gr:'受贈人身分決定年度免稅額或是否適用婚姻扣除。',
+ gsp:'夫妻贈與分割可讓一筆贈與視為兩人各贈一半,雙方都須是美國公民或居民。',gp:'以前年度已用掉的終身贈與額度(累計應稅贈與)。',
+ xnw:'離境稅判斷條件之一:淨資產門檻。',xat:'離境稅判斷條件之一:過去 5 年平均所得稅門檻。',
+ xc:'無法證明前 5 年都已依法申報納稅者,不論資產多少都屬 covered expatriate。',
+ xfmv:'covered expatriate 的資產視同在離境前一天按市價出售。',xb:'計算視同出售利得用的成本。',
+ xr:'綠卡持有者計算成本時,可用成為美國居民那天的市價(§877A(h)(2)),沒有或不知道就留空。'};
+const helps=[];
+Object.entries(HELP).forEach(([id,t])=>{const x=$(id);if(!x)return;const lb=x.previousElementSibling;if(!lb||lb.tagName!=='LABEL')return;
+ const b=document.createElement('button');b.type='button';b.className='help-btn';b.textContent='?';b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','欄位說明');
+ const tip=document.createElement('div');tip.className='help-text';tip.hidden=true;tip.textContent=t;
+ if(lb.classList.contains('m'))tip.className+=' '+[...lb.classList].filter(c=>c.startsWith('m')).join(' ');
+ b.onclick=e=>{e.preventDefault();tip.hidden=!tip.hidden;b.setAttribute('aria-expanded',String(!tip.hidden))};lb.appendChild(b);lb.after(tip);helps.push([b,tip])});
+$('showAllHelp').onchange=e=>helps.forEach(([b,tip])=>{tip.hidden=!e.target.checked;b.setAttribute('aria-expanded',String(e.target.checked))});
+// ===== 列印 / PDF:簡易版(摘要)與詳細版(摘要+目前身分的所有分頁) =====
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function inMode(el,m){for(let n=el;n&&n!==document.body;n=n.parentElement){if(n.classList&&n.classList.contains('m')&&!n.classList.contains('m-'+m))return false}return true}
+function preparePrint(mode){const m=document.body.dataset.mode,today=new Date().toLocaleDateString('zh-TW');
+ document.body.classList.toggle('print-simple',mode==='simple');$('s6').classList.toggle('no-print',m==='nra');
+ $('printHead').innerHTML='<div class="ph"><h1>美國稅務試算報告('+(mode==='simple'?'簡易版':'詳細版')+')</h1><div class="row"><span>客戶:<b>'+esc($('cliName').value.trim()||'＿＿＿＿＿＿')+'</b></span><span>身分:<b>'+MODE_NAME[m]+'</b></span><span>報告日期:'+today+'</span><span>資料基準:2026-11-04 查證(2026 稅務年度)</span></div></div>';
+ let out='';
+ TABS.forEach(([sid,tn])=>{const sec=$(sid);if(!sec||(sid==='s6'&&m==='nra'))return;let rows='';
+  [...sec.querySelectorAll('input,select')].forEach(x=>{if(!inMode(x,m))return;let lb=x.previousElementSibling;while(lb&&lb.classList.contains('help-text'))lb=lb.previousElementSibling;if(!lb||lb.tagName!=='LABEL'||!inMode(lb,m))return;
+   const name=lb.childNodes[0]?lb.childNodes[0].textContent:lb.textContent;const val=x.tagName==='SELECT'?x.options[x.selectedIndex].text:(x.value===''?'(未填)':(+x.value).toLocaleString('en-US'));
+   rows+='<tr><td>'+esc(name)+'</td><td>'+esc(val)+'</td></tr>'});
+  let res='';[...sec.querySelectorAll('.res[id]')].forEach(r=>{if(inMode(r,m)&&r.innerHTML.trim())res+='<div class="res">'+r.innerHTML+'</div>'});
+  if(rows||res)out+='<h2>'+esc(sid==='s1'?$('bs1').textContent:tn)+'</h2>'+(rows?'<div class="tbl"><table><tr><th>輸入項目</th><th>數值</th></tr>'+rows+'</table></div>':'')+res});
+ const pend=[...document.querySelectorAll('main .tag')].filter(t=>t.textContent.includes('待確認')&&inMode(t,m)&&!(m==='nra'&&t.closest('#s6'))).length;
+ out+='<div class="warn">本報告共有 '+pend+' 處標示「待確認」(尚未對官方來源核實)'+(mode==='simple'?',詳見詳細版或網頁。':',請見各分頁內文。')+'數字為示意估算,實際以 IRS 規定與申報結果為準。</div>';
+ out+='<p><small>本報告為一般性資訊與試算,不構成投資、法律或稅務建議。實際申報請洽合格美國稅務專業人員。</small></p>';
+ $('printSummary').innerHTML='<h2 style="font-size:14pt">重點摘要</h2>'+out}
+function printReport(mode){preparePrint(mode);requestAnimationFrame(()=>setTimeout(()=>window.print(),150))}
+$('pdfSimple').onclick=()=>printReport('simple');$('pdfDetail').onclick=()=>printReport('detail');
+window.addEventListener('beforeprint',()=>{if(!$('printSummary').innerHTML)preparePrint('detail')});
+window.addEventListener('afterprint',()=>{$('printSummary').innerHTML='';document.body.classList.remove('print-simple')});
 const h=location.hash.slice(1);setMode(['nra','gc','usc'].includes(h)?h:'nra');show('s0');
 }
 </script></body></html>
