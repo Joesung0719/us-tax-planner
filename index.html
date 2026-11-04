@@ -1,0 +1,106 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>非美國人 美國稅務試算</title>
+<style>
+:root{--bg:#f6f7f9;--fg:#1c2230;--card:#fff;--ac:#1d4ed8;--mut:#5b6475;--warn:#fff4d6;--bd:#d9dde5}
+@media(prefers-color-scheme:dark){:root{--bg:#10131a;--fg:#e8ebf2;--card:#1a1f2b;--ac:#7aa2ff;--mut:#9aa3b5;--warn:#3a3217;--bd:#2d3444}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 system-ui,"Noto Sans TC",sans-serif}
+header,main{max-width:900px;margin:auto;padding:16px}h1{font-size:1.5rem;margin:.3em 0}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}nav button{font:inherit;padding:10px 14px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:10px;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+section{display:none;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}section.on{display:block}
+label{display:block;margin:12px 0 4px;font-weight:600}input,select{font:inherit;width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg)}
+.res{margin-top:14px;padding:12px;border-left:4px solid var(--ac);background:var(--bg)}.warn{background:var(--warn);padding:10px 12px;border-radius:8px;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.95rem}td,th{border:1px solid var(--bd);padding:8px;text-align:left;vertical-align:top}
+.tag{font-size:.8rem;padding:1px 8px;border-radius:99px;border:1px solid var(--bd);color:var(--mut);white-space:nowrap}
+footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem}small{color:var(--mut)}
+</style></head><body>
+<header><h1>非美國人 美國稅務試算</h1><small>對象:在美國持有資產、非美國公民/非美國稅務居民的人(第一階段)。資料基準:2026-11-03 查證。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
+<nav id="nav"></nav></header><main>
+<section id="s0"><h2>身分判定</h2>
+<p>美國稅務身分分兩套:<b>所得稅</b>看「居民/非居民外國人」,<b>遺產與贈與稅</b>看「居籍(domicile)」。兩者可以不同。</p>
+<label>是否持有美國綠卡(任一時點在當年)?</label><select id="gc"><option value="n">否</option><option value="y">是</option></select>
+<label>今年在美天數</label><input id="d0" type="number" min="0" max="366" value="0">
+<label>前一年在美天數</label><input id="d1" type="number" min="0" max="366" value="0">
+<label>前二年在美天數</label><input id="d2" type="number" min="0" max="366" value="0">
+<div class="res" id="r0"></div>
+<div class="warn">學生(F/J/M/Q)與部分教師、研究者的天數可能豁免(學生一般至超過 5 個曆年);「更密切連結(closer connection)」例外需在美不足 183 天並提交 Form 8840。以上為 IRS Pub 519 (2025) 摘要。<br>居籍(domicile)無天數標準,依事實與情況(待確認:判斷要素清單)。</div></section>
+
+<section id="s1"><h2>美國資產清單</h2>
+<p>遺產稅「美國 situs」的歸類(依 Form 706-NA 說明):</p>
+<table><tr><th>資產</th><th>遺產稅</th><th>贈與稅</th></tr>
+<tr><td>美國不動產</td><td>計入</td><td>課稅</td></tr>
+<tr><td>美國境內有形動產</td><td>計入</td><td>課稅</td></tr>
+<tr><td>美國公司股票(含 ETF 股份;憑證在哪都算)</td><td>計入</td><td>無形資產,一般不課(§2501(a)(2))</td></tr>
+<tr><td>外國公司股票</td><td>不計入</td><td>不課</td></tr>
+<tr><td>美國銀行存款(非美國營業用)</td><td>不計入</td><td>無形資產,一般不課</td></tr>
+<tr><td>非居籍被保險人的壽險給付</td><td>不計入</td><td>—</td></tr>
+<tr><td>符合 §871(h) 的債券</td><td>不計入</td><td>不課</td></tr>
+<tr><td>實體現鈔放在美國</td><td><span class="tag">待確認</span></td><td><span class="tag">待確認</span></td></tr>
+<tr><td>美國合夥、信託、LLC 權益</td><td><span class="tag">待確認</span></td><td><span class="tag">待確認</span></td></tr></table>
+<div class="warn">透過外國公司間接持有美國股票,是否會被視為美國 situs 須個案判斷(待確認)。</div></section>
+
+<section id="s2"><h2>所得稅</h2>
+<table><tr><th>所得</th><th>非居民外國人</th><th>狀態</th></tr>
+<tr><td>股利、租金、權利金(FDAP)</td><td>30% 或條約稅率(Form W-8BEN)</td><td><span class="tag">IRS 頁面已查</span></td></tr>
+<tr><td>美國銀行存款利息</td><td>不課稅、不申報(非營業所得)</td><td><span class="tag">IRS 頁面已查</span></td></tr>
+<tr><td>Portfolio interest</td><td>免稅</td><td><span class="tag">IRS 頁面已查</span></td></tr>
+<tr><td>資本利得(股票)</td><td>在美不足 183 天通常不課稅</td><td><span class="tag">IRS 頁面已查</span></td></tr>
+<tr><td>出售美國不動產</td><td>FIRPTA 預設扣繳 15%(amount realized);自住且 ≤$300,000 例外</td><td><span class="tag">部分已查</span></td></tr>
+<tr><td>台美所得稅協定稅率</td><td>—</td><td><span class="tag">待確認</span></td></tr></table>
+<h3>30% 預扣試算</h3><label>美國股利金額(美元)</label><input id="div" type="number" min="0" value="10000">
+<label>適用稅率(%)</label><input id="rate" type="number" min="0" max="100" value="30"><small>預設 30%;條約稅率是否適用台灣:待確認</small>
+<div class="res" id="r2"></div></section>
+
+<section id="s3"><h2>遺產與贈與稅</h2>
+<h3>遺產稅(Form 706-NA)</h3>
+<label>美國 situs 資產公平市價合計(美元)</label><input id="ug" type="number" min="0" value="1000000">
+<label>可扣除金額(美元,依美國 situs 比例的債務/費用;比例公式待確認,請自行填入)</label><input id="ud" type="number" min="0" value="0">
+<div class="res" id="r3"></div>
+<div class="warn">非居籍外國人<b>不適用</b>居民的基本免稅額($15,000,000,2026),只有 IRC §2102(b) 的 $13,000 抵免(約等於課稅遺產 $60,000 的稅額)。台灣沒有列入 706-NA 說明的 15 個條約國,故無條約比例抵免。婚姻扣除(非美國公民配偶/QDOT):待確認。</div>
+<h3>贈與稅(Form 709-NA)</h3>
+<label>當年度美國 situs 不動產/有形動產贈與(對單一受贈人,美元)</label><input id="gf" type="number" min="0" value="100000">
+<label>受贈人</label><select id="gs"><option value="19000">非配偶</option><option value="194000">非美國公民配偶(2026)</option></select>
+<div class="res" id="r4"></div>
+<small>年度免稅額 2026:$19,000;非美國公民配偶 $194,000(IRS FAQ)。無終身贈與抵免。稅率表沿用遺產稅表(§2502,待確認)。僅單一受贈人、單年度簡化計算;多年度累計贈與待確認。</small></section>
+
+<section id="s4"><h2>申報義務清單</h2>
+<table><tr><th>情況</th><th>表格</th><th>期限</th></tr>
+<tr><td>死亡時美國 situs 資產超過 $60,000</td><td>Form 706-NA</td><td>死亡後 9 個月;Form 4768 可延 6 個月</td></tr>
+<tr><td>贈與美國不動產/有形動產超過免稅額</td><td>Form 709-NA</td><td>隔年 4/15(可延)</td></tr>
+<tr><td>主張更密切連結</td><td>Form 8840</td><td>1040-NR 到期日</td></tr>
+<tr><td>股利等被預扣、要適用條約</td><td>Form W-8BEN(給扣繳義務人)</td><td>—</td></tr>
+<tr><td>出售美國不動產</td><td>Forms 8288/8288-A(買方);8288-B 申請降低扣繳</td><td>待確認</td></tr>
+<tr><td>非居民有須申報的美國所得</td><td>Form 1040-NR</td><td><span class="tag">待確認</span> 4/15 或 6/15</td></tr>
+<tr><td>引用條約立場</td><td>Form 8833</td><td>—</td></tr></table></section>
+
+<section id="s5"><h2>傳承建議</h2>
+<ul><li>先列出美國 situs 資產合計,是否超過 $60,000 門檻;超過部分起稅率 18%–40%,最高到 40%。</li>
+<li>股票、ETF 若是美國公司股份,屬遺產稅美國 situs;改持外國註冊的基金或其他安排是否合適,須與美國稅務專業人員確認(待確認,本工具不提供建議)。</li>
+<li>生前贈與:美國股票等無形資產一般不課美國贈與稅,但台灣贈與稅另計(年免稅額與稅率待逐條對台灣原文)。</li>
+<li>台灣端:境外財產依所在地國已納稅額,可依遺產及贈與稅法 §11 扣抵(需完稅憑證與領事簽證),細節待確認。</li>
+<li>美國人持有台灣保單、綠卡、美國公民之情況為後續階段。</li></ul></section>
+</main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。數字依 IRS 與 IRC 條文於 2026-11-03 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。</footer>
+<script>
+const BRACKETS=[[0,0,.18],[10000,1800,.20],[20000,3800,.22],[40000,8200,.24],[60000,13000,.26],[80000,18200,.28],[100000,23800,.30],[150000,38800,.32],[250000,70800,.34],[500000,155800,.37],[750000,248300,.39],[1000000,345800,.40]];
+function tentativeTax(x){x=Math.max(0,x);let b=BRACKETS[0];for(const r of BRACKETS){if(x>r[0])b=r;}return Math.round(b[1]+(x-b[0])*b[2]);}
+function estate706NA(usGross,deductions){const taxable=Math.max(0,usGross-deductions);const t=tentativeTax(taxable);return{taxable,tentative:t,credit:Math.min(13000,t),tax:Math.max(0,t-13000),mustFile:usGross>60000};}
+function giftTaxNRNC(taxableGifts){const t=tentativeTax(taxableGifts);return{tax:t};}
+function substantialPresence(d0,d1,d2){const w=d0+d1/3+d2/6;return{weighted:w,meets:d0>=31&&w>=183};}
+function withhold(amount,rate){return Math.round(amount*rate);}
+if(typeof module!=='undefined')module.exports={tentativeTax,estate706NA,substantialPresence};
+const $=id=>document.getElementById(id),fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const names=['身分判定','美國資產清單','所得稅','遺產與贈與稅','申報義務清單','傳承建議'];
+names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>show(i);b.id='b'+i;$('nav').appendChild(b)});
+function show(i){names.forEach((_,j)=>{$('s'+j).classList.toggle('on',i===j);$('b'+j).classList.toggle('on',i===j)})}
+function calc(){
+ const sp=substantialPresence(+$('d0').value||0,+$('d1').value||0,+$('d2').value||0);
+ let t='加權天數 = '+sp.weighted.toFixed(1)+(sp.meets?'(達 183 天且本年 ≥31 天:通過實質居留測試,除非有豁免/例外)':'(未通過實質居留測試)');
+ if($('gc').value==='y')t='持有綠卡:所得稅上為美國居民。<br>'+t;
+ $('r0').innerHTML=t;
+ const dv=+$('div').value||0,rt=+$('rate').value||0;$('r2').innerHTML='預扣約 '+fmt(withhold(dv,rt/100))+',實收約 '+fmt(dv-withhold(dv,rt/100));
+ const e=estate706NA(+$('ug').value||0,+$('ud').value||0);
+ $('r3').innerHTML='需申報 706-NA:'+(e.mustFile?'是':'否(未超過 $60,000)')+'<br>課稅遺產:'+fmt(e.taxable)+'<br>稅前稅額(§2001(c)):'+fmt(e.tentative)+'<br>統一抵免:'+fmt(e.credit)+'<br><b>應納稅額:'+fmt(e.tax)+'</b>';
+ const g=+$('gf').value||0,ex=+$('gs').value,tg=Math.max(0,g-ex);
+ $('r4').innerHTML='應稅贈與:'+fmt(tg)+(tg>0?'<br>贈與稅約:'+fmt(giftTaxNRNC(tg).tax)+'(待確認 §2502)':'<br>未超過免稅額,但仍可能需申報 709-NA(待確認)');
+}
+document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));show(0);calc();
+</script></body></html>
