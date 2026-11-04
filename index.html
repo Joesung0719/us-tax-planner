@@ -106,11 +106,11 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <tr><td>美國銀行存款利息</td><td>不課稅、不申報(非營業所得)</td><td><span class="tag">IRS 頁面已查</span></td></tr>
 <tr><td>Portfolio interest</td><td>免稅</td><td><span class="tag">IRS 頁面已查</span></td></tr>
 <tr><td>資本利得(股票)</td><td>在美不足 183 天通常不課稅</td><td><span class="tag">IRS 頁面已查</span></td></tr>
-<tr><td>出售美國不動產</td><td>FIRPTA 預設扣繳 15%(amount realized);自住且 ≤$300,000 例外</td><td><span class="tag">部分已查</span></td></tr>
+<tr><td>出售美國不動產</td><td>FIRPTA 由買方扣繳成交金額(amount realized)的 15%;買方買來自住且成交金額 ≤$300,000 免扣繳;買方自住且 $300,000 以上、≤$1,000,000 降為 10%(IRC §1445(a)、(b)(5)、(c)(4))</td><td><span class="tag">條文已查</span></td></tr>
 <tr><td>美國保單紅利利息、解約超過成本的部分</td><td><span class="tag">待確認</span></td><td><span class="tag">待確認</span></td></tr>
-<tr><td>台美所得稅協定</td><td>目前沒有生效的協定,以 30% 為預設。H.R. 33(台美雙邊減稅法案)眾議院已通過、參議院審議中,各來源對稅率描述不一</td><td><span class="tag">二手來源,待確認</span></td></tr></table></div>
+<tr><td>台美所得稅協定</td><td>目前沒有生效的協定,以 30% 為預設。H.R. 33(台美加速消除雙重課稅法案)2025-01-15 眾議院通過,2025-01-16 送參議院財政委員會,尚未完成立法。眾議院版本:台灣居民股利 15%(符合條件的台灣公司 10%)、利息與權利金 10%,且須美國財政部認定台灣對美國人提供對等待遇才生效(GovInfo 法案文字;財政部新聞稿)</td><td><span class="tag">法案未生效</span></td></tr></table></div>
 <h3>30% 預扣試算</h3><label>美國股利金額(美元)</label><input id="div" type="number" min="0" value="10000">
-<label>適用稅率(%)</label><input id="rate" type="number" min="0" max="100" value="30"><small>預設 30%;條約稅率是否適用台灣:待確認</small>
+<label>適用稅率(%)</label><input id="rate" type="number" min="0" max="100" value="30"><small>預設 30%;台灣目前沒有協定稅率可用(H.R. 33 若立法並生效,股利可能降為 15%)</small>
 <div class="res" id="r2"></div>
 </div>
 <div class="m m-gc m-usc">
@@ -181,8 +181,8 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <tr><td>贈與美國不動產/有形動產超過免稅額</td><td>Form 709-NA</td><td>隔年 4/15(可延)</td></tr>
 <tr><td>主張更密切連結</td><td>Form 8840</td><td>1040-NR 到期日</td></tr>
 <tr><td>股利等被預扣、要適用條約</td><td>Form W-8BEN(給扣繳義務人)</td><td>—</td></tr>
-<tr><td>出售美國不動產</td><td>Forms 8288/8288-A(買方);8288-B 申請降低扣繳</td><td>待確認</td></tr>
-<tr><td>非居民有須申報的美國所得</td><td>Form 1040-NR</td><td>有薪資預扣的員工:4/15(1040-NR 說明);其他情況 <span class="tag">待確認</span></td></tr>
+<tr><td>出售美國不動產</td><td>Forms 8288/8288-A(買方);8288-B 申請降低扣繳</td><td>買方於交易後 20 天內 <span class="tag">待確認</span></td></tr>
+<tr><td>非居民有須申報的美國所得</td><td>Form 1040-NR</td><td>有預扣薪資的員工,或在美國有辦公室/營業場所:4/15;其他(例如只有被扣繳的投資所得、出售美國不動產):6/15(IRS「Taxation of nonresident aliens」)</td></tr>
 <tr><td>引用條約立場</td><td>Form 8833</td><td>—</td></tr></table></div>
 </div>
 <div class="m m-gc m-usc">
