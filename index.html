@@ -15,9 +15,11 @@ label{display:block;margin:12px 0 4px;font-weight:600}input,select{font:inherit;
 .idc{font:inherit;text-align:left;color:var(--fg);cursor:pointer;margin:0;border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px}
 .idc.on{outline:3px solid var(--ac)}.idc:disabled{opacity:.6;cursor:default}
 body[data-mode=nra] .m:not(.m-nra),body[data-mode=gc] .m:not(.m-gc),body[data-mode=usc] .m:not(.m-usc){display:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}.xlink{font-size:.95rem;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--ac);color:var(--ac);text-decoration:none;white-space:nowrap}.xlink:hover{background:var(--ac);color:#fff}
+@media print{.xlink,nav{display:none}}
 footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem}small{color:var(--mut)}
 </style></head><body data-mode="nra">
-<header><h1>美國稅務試算</h1><small>資料基準:2026-11-04 查證(稅額以 2026 稅務年度數字為準)。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
+<header><div class="top"><h1>美國稅務試算</h1><a class="xlink" href="https://joesung0719.github.io/cfp-planner/" target="_blank" rel="noopener">台灣退休與傳承試算 ↗</a></div><small>資料基準:2026-11-04 查證(稅額以 2026 稅務年度數字為準)。標示「待確認」者尚未對官方來源核實,請勿當作定論。</small>
 <nav id="nav"></nav></header><main>
 
 <section id="s0"><h2>身分判定</h2>
@@ -251,7 +253,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <li><b>台灣端同時課稅:</b>經常居住台灣的中華民國國民,台灣遺贈稅就全球財產課;放棄中華民國國籍未滿 2 年仍按國民課。台灣稅額不在本頁試算,可用<a href="https://joesung0719.github.io/cfp-planner/" target="_blank" rel="noopener" style="color:var(--ac)">全方位退休與傳承規劃試算</a>估算。</li>
 <li>本頁只提供規則與粗估,不提供個別安排建議。</li></ul>
 </div></section>
-</main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。數字依 IRS、IRC 條文與全國法規資料庫於 2026-11-04 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。<br>台灣遺產稅、贈與稅與退休規劃:<a href="https://joesung0719.github.io/cfp-planner/" target="_blank" rel="noopener" style="color:var(--ac)">全方位退休與傳承規劃試算</a></footer>
+</main><footer>本工具為一般性資訊與試算,不構成投資、法律或稅務建議。數字依 IRS、IRC 條文與全國法規資料庫於 2026-11-04 查證;標「待確認」者未核實。實際申報請洽合格美國稅務專業人員。</footer>
 <script>
 // ===== 法定數值 =====
 const BRACKETS=[[0,0,.18],[10000,1800,.20],[20000,3800,.22],[40000,8200,.24],[60000,13000,.26],[80000,18200,.28],[100000,23800,.30],[150000,38800,.32],[250000,70800,.34],[500000,155800,.37],[750000,248300,.39],[1000000,345800,.40]]; // IRC §2001(c)
