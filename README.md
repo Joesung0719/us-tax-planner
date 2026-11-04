@@ -7,3 +7,12 @@
 - 規則:數字須對照 IRS / IRC 原文;未驗證標「待確認」。
 
 不構成投資、法律或稅務建議。
+
+## 測試版(給保戶試用,限期)
+
+- 網址:`https://joesung0719.github.io/us-tax-planner/trial/`(搭配台灣退休與傳承試算的試用版 `https://joesung0719.github.io/cfp-planner/trial/`,兩邊互相連結)。
+- **到期日只改一處**:`trial/expiry.js` 的 `TRIAL_EXPIRES = "YYYY-MM-DD"`(台灣時間當天 23:59:59 止)。兩個試用版共用這個檔,改了推上 main 即一起生效。
+- 到期後 `trial/` 只顯示「試用期已結束,請聯絡 Joe」,不會轉到試算內容;直接開 `trial/app.html` 也會被轉回。
+- 這是前端軟性限制:GitHub Pages 是純靜態,懂技術的人可改電腦時間或直接讀原始碼繞過;正式版網址本身也是公開的。要硬性關閉,刪掉 `trial/` 資料夾(或只刪 `trial/app.html`)並推上 main,幾分鐘後該網址就是 404。
+- 正式版 `index.html` 改過後,跑 `python3 tools/build-trial.py` 重新產生 `trial/app.html` 再推上去,測試版才會跟著更新。
+- 本頁沒有任何資料上傳或瀏覽器儲存;輸入只在保戶自己的瀏覽器內計算。
