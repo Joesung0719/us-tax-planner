@@ -28,7 +28,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <label>前一年在美天數</label><input id="d1" type="number" min="0" max="366" value="0">
 <label>前二年在美天數</label><input id="d2" type="number" min="0" max="366" value="0">
 <div class="res" id="r0"></div>
-<div class="warn">學生(F/J/M/Q)與部分教師、研究者的天數可能豁免(學生一般至超過 5 個曆年);「更密切連結(closer connection)」例外需在美不足 183 天並提交 Form 8840。以上為 IRS Pub 519 (2025) 摘要。<br>居籍(domicile)無天數標準,依事實與情況(待確認:判斷要素清單)。</div></section>
+<div class="warn">學生(F/J/M/Q)與部分教師、研究者的天數可能豁免(學生一般至超過 5 個曆年);「更密切連結(closer connection)」例外需在美不足 183 天並提交 Form 8840。以上為 IRS Pub 519 (2025) 摘要。<br>居籍(domicile):依 Reg. §20.0-1(b)(1),在某地生活(哪怕時間很短)且沒有「確定的、要離開的現時意圖」即取得居籍;只是居住但無意長期留下,不構成居籍;想改變居籍必須搭配實際遷出。沒有天數標準,是事實與情況判斷(具體考量因素清單待確認)。</div></section>
 
 <section id="s1"><h2>美國資產清單</h2>
 <p>遺產稅「美國 situs」的歸類(依 Form 706-NA 說明):</p>
@@ -53,7 +53,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <tr><td>資本利得(股票)</td><td>在美不足 183 天通常不課稅</td><td><span class="tag">IRS 頁面已查</span></td></tr>
 <tr><td>出售美國不動產</td><td>FIRPTA 預設扣繳 15%(amount realized);自住且 ≤$300,000 例外</td><td><span class="tag">部分已查</span></td></tr>
 <tr><td>美國保單紅利利息、解約超過成本的部分</td><td><span class="tag">待確認</span></td><td><span class="tag">待確認</span></td></tr>
-<tr><td>台美所得稅協定稅率</td><td>—</td><td><span class="tag">待確認</span></td></tr></table>
+<tr><td>台美所得稅協定</td><td>目前沒有生效的協定,以 30% 為預設。H.R. 33(台美雙邊減稅法案)眾議院已通過、參議院審議中,各來源對稅率描述不一</td><td><span class="tag">二手來源,待確認</span></td></tr></table>
 <h3>30% 預扣試算</h3><label>美國股利金額(美元)</label><input id="div" type="number" min="0" value="10000">
 <label>適用稅率(%)</label><input id="rate" type="number" min="0" max="100" value="30"><small>預設 30%;條約稅率是否適用台灣:待確認</small>
 <div class="res" id="r2"></div></section>
@@ -61,7 +61,10 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <section id="s3"><h2>遺產與贈與稅</h2>
 <h3>遺產稅(Form 706-NA)</h3>
 <label>美國 situs 資產公平市價合計(美元)</label><input id="ug" type="number" min="0" value="1000000">
-<label>可扣除金額(美元,依美國 situs 比例的債務/費用;比例公式待確認,請自行填入)</label><input id="ud" type="number" min="0" value="0">
+<label>全球遺產總額(美元,含非美國資產;留空或等於上方金額表示全在美國)</label><input id="uw" type="number" min="0" value="">
+<label>債務與喪葬、管理費用(全球合計,美元)</label><input id="ud" type="number" min="0" value="0">
+<small>依 §2106(a)(1),這類扣除額按「美國 situs 遺產 ÷ 全球遺產」比例扣除;且須在申報書列出非美國資產價值(§2106(b))。</small>
+<label>慈善、婚姻等其他扣除(美國 situs 部分,美元)</label><input id="uo" type="number" min="0" value="0">
 <div class="res" id="r3"></div>
 <div class="warn">非居籍外國人<b>不適用</b>居民的基本免稅額($15,000,000,2026),只有 IRC §2102(b) 的 $13,000 抵免(約等於課稅遺產 $60,000 的稅額)。台灣沒有列入 706-NA 說明的 15 個條約國,故無條約比例抵免。遺產留給非美國公民配偶,一般不能用婚姻扣除,除非資產放入 QDOT(§2056(d));非居籍被繼承人的細節(§2106)待確認。</div>
 <h3>贈與稅(Form 709-NA)</h3>
@@ -77,7 +80,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <tr><td>主張更密切連結</td><td>Form 8840</td><td>1040-NR 到期日</td></tr>
 <tr><td>股利等被預扣、要適用條約</td><td>Form W-8BEN(給扣繳義務人)</td><td>—</td></tr>
 <tr><td>出售美國不動產</td><td>Forms 8288/8288-A(買方);8288-B 申請降低扣繳</td><td>待確認</td></tr>
-<tr><td>非居民有須申報的美國所得</td><td>Form 1040-NR</td><td><span class="tag">待確認</span> 4/15 或 6/15</td></tr>
+<tr><td>非居民有須申報的美國所得</td><td>Form 1040-NR</td><td>有薪資預扣的員工:4/15(1040-NR 說明);其他情況 <span class="tag">待確認</span></td></tr>
 <tr><td>引用條約立場</td><td>Form 8833</td><td>—</td></tr></table></section>
 
 <section id="s5"><h2>傳承建議</h2>
@@ -90,6 +93,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <script>
 const BRACKETS=[[0,0,.18],[10000,1800,.20],[20000,3800,.22],[40000,8200,.24],[60000,13000,.26],[80000,18200,.28],[100000,23800,.30],[150000,38800,.32],[250000,70800,.34],[500000,155800,.37],[750000,248300,.39],[1000000,345800,.40]];
 function tentativeTax(x){x=Math.max(0,x);let b=BRACKETS[0];for(const r of BRACKETS){if(x>r[0])b=r;}return Math.round(b[1]+(x-b[0])*b[2]);}
+function proRataDeduction(debts,usGross,worldGross){const w=(worldGross&&worldGross>=usGross)?worldGross:usGross;return w>0?debts*usGross/w:0;}
 function estate706NA(usGross,deductions){const taxable=Math.max(0,usGross-deductions);const t=tentativeTax(taxable);return{taxable,tentative:t,credit:Math.min(13000,t),tax:Math.max(0,t-13000),mustFile:usGross>60000};}
 function giftTaxNRNC(taxableGifts){const t=tentativeTax(taxableGifts);return{tax:t};}
 function substantialPresence(d0,d1,d2){const w=d0+d1/3+d2/6;return{weighted:w,meets:d0>=31&&w>=183};}
@@ -105,8 +109,8 @@ function calc(){
  if($('gc').value==='y')t='持有綠卡:所得稅上為美國居民。<br>'+t;
  $('r0').innerHTML=t;
  const dv=+$('div').value||0,rt=+$('rate').value||0;$('r2').innerHTML='預扣約 '+fmt(withhold(dv,rt/100))+',實收約 '+fmt(dv-withhold(dv,rt/100));
- const e=estate706NA(+$('ug').value||0,+$('ud').value||0);
- $('r3').innerHTML='需申報 706-NA:'+(e.mustFile?'是':'否(未超過 $60,000)')+'<br>課稅遺產:'+fmt(e.taxable)+'<br>稅前稅額(§2001(c)):'+fmt(e.tentative)+'<br>統一抵免:'+fmt(e.credit)+'<br><b>應納稅額:'+fmt(e.tax)+'</b>';
+ const ugv=+$('ug').value||0,pr=proRataDeduction(+$('ud').value||0,ugv,+$('uw').value||0),e=estate706NA(ugv,pr+(+$('uo').value||0));
+ $('r3').innerHTML='需申報 706-NA:'+(e.mustFile?'是':'否(未超過 $60,000)')+'<br>依比例可扣除債務費用:'+fmt(pr)+'<br>課稅遺產:'+fmt(e.taxable)+'<br>稅前稅額(§2001(c)):'+fmt(e.tentative)+'<br>統一抵免:'+fmt(e.credit)+'<br><b>應納稅額:'+fmt(e.tax)+'</b>';
  const g=+$('gf').value||0,ex=+$('gs').value,tg=Math.max(0,g-ex);
  $('r4').innerHTML='應稅贈與:'+fmt(tg)+(tg>0?'<br>贈與稅約:'+fmt(giftTaxNRNC(tg).tax)+'(待確認 §2502)':'<br>未超過免稅額,但仍可能需申報 709-NA(待確認)');
 }
