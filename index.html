@@ -51,7 +51,6 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <button type="button" id="cliDel" title="刪除目前選取的客戶資料" aria-label="刪除">🗑️</button>
 <button type="button" id="cliExp" title="下載成檔案,可換電腦使用或備份">⬇️ 匯出</button>
 <button type="button" id="cliImp" title="讀取先前匯出的檔案">⬆️ 匯入</button><input type="file" id="cliFile" accept=".json,application/json" hidden>
-<button type="button" id="cliNew" title="清空欄位,回到預設值">新客戶</button>
 <span id="cliMsg"></span></div>
 <div class="grp"><label class="chk"><input type="checkbox" id="showAllHelp"> 顯示全部欄位說明</label>
 <button type="button" class="pdf" id="pdfSimple" title="重點摘要:身分、輸入數字與試算結果,約 1～2 頁">📄 簡易版 PDF</button>
@@ -390,7 +389,6 @@ $('cliSave').onclick=()=>{const n=$('cliName').value.trim();if(!n){alert('請先
 $('cliList').onchange=()=>{const n=$('cliList').value;if(!n)return;const r=(readStore()||{})[n];if(!r)return;restore(r);$('cliName').value=n;cliMsg('✓ 已讀取「'+n+'」')};
 $('cliDel').onclick=()=>{const n=$('cliList').value;if(!n){alert('請先在「讀取客戶」選擇要刪除的人。');return}
  if(!confirm('確定刪除「'+n+'」的資料?刪除後無法復原。'))return;const s=readStore()||{};delete s[n];writeStore(s);refreshList();cliMsg('已刪除「'+n+'」')};
-$('cliNew').onclick=()=>{fields().forEach(x=>{if(x.id in DEFAULTS)x.value=DEFAULTS[x.id]});$('cliName').value='';$('cliList').value='';calc();cliMsg('已清空,回到預設值')};
 $('cliExp').onclick=()=>{const r=snapshot(),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));
  a.download=(r.name||'未命名客戶')+'_美國稅務試算_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)};
 $('cliImp').onclick=()=>$('cliFile').click();
