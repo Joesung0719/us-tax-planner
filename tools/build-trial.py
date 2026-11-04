@@ -26,7 +26,7 @@ banner = ('<div id="trialBanner" style="background:#fef3c7;border-bottom:2px sol
           '<b>測試版</b>,試用至 <b id="trialEnd"></b><span id="trialLeft"></span>。數字為示意估算,不構成投資、法律或稅務建議。'
           '所有計算都在你的瀏覽器內完成,不會上傳你輸入的資料。</div>'
           '<script>document.getElementById("trialEnd").textContent=TRIAL.expires;'
-          'document.getElementById("trialLeft").textContent="(剩 "+TRIAL.daysLeft+" 天)";</script>')
+          'document.getElementById("trialLeft").textContent="("+TRIAL.daysText+")";</script>')
 sub('<body data-mode="nra">', '<body data-mode="nra">' + banner)
 
 # 3) 連到台灣退休與傳承試算的測試版,不連正式版
