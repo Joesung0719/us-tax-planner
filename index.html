@@ -172,7 +172,7 @@ footer{max-width:900px;margin:auto;padding:16px;color:var(--mut);font-size:.9rem
 <label>FEIE 符合資格的天數(0=不適用;全年符合填 365)</label><input id="fd" type="number" min="0" max="366" value="0">
 <small>FEIE 資格(IRC §911(d)):稅務住所在外國,且 (1) 美國公民整個稅務年度為外國的「善意居民」,或 (2) 公民或居民在任何連續 12 個月內在外國滿 330 整天。綠卡持有者只能用 330 天測試(善意居民測試在條文中限公民;協定國例外不適用台灣)。上限按符合天數比例計算。</small>
 <div class="res" id="ri"></div>
-<div class="warn">FEIE 與外國稅額扣抵:被排除的薪資所對應的外國稅,不能再扣抵(§911(d)(6));被排除的金額仍會把其他所得推到較高稅率(§911(f) 堆疊計算)。本試算已按這兩點處理。<br>簡化說明:採標準扣除額(單身 $16,100、合併 $32,200);外國稅額扣抵僅以「外國來源所得 ÷ 應稅所得 × 美國所得稅」估上限,未區分被動/一般類別、未分攤費用;用不完可往前 1 年、往後 10 年結轉(Pub 514)。淨投資所得稅 3.8%(門檻 單身 $200,000、合併 $250,000,不隨通膨調整)不能用外國稅額扣抵 <span class="tag">一般理解,原文待確認</span>。跨身分年度不能用標準扣除額。</div>
+<div class="warn">FEIE 與外國稅額扣抵:被排除的薪資所對應的外國稅,不能再扣抵(§911(d)(6));被排除的金額仍會把其他所得推到較高稅率(§911(f) 堆疊計算)。本試算已按這兩點處理。<br>簡化說明:採標準扣除額(單身 $16,100、合併 $32,200);外國稅額扣抵僅以「外國來源所得 ÷ 應稅所得 × 美國所得稅」估上限,未區分被動/一般類別、未分攤費用;用不完可往前 1 年、往後 10 年結轉(Pub 514)。淨投資所得稅 3.8%(門檻 單身 $200,000、合併 $250,000,不隨通膨調整;判斷門檻時要把 FEIE 排除額加回,IRC §1411(d))不能用外國稅額扣抵 <span class="tag">一般理解,原文待確認</span>。跨身分年度不能用標準扣除額。</div>
 <h3>台灣與美國怎麼互動</h3>
 <div class="tbl"><table><tr><th>議題</th><th>重點</th></tr>
 <tr><td>雙重居民</td><td>住在台灣的綠卡持有者,可能同時是台灣與美國的稅務居民。台美沒有生效的所得稅協定,沒有「居民身分決勝條款」可用,兩邊各依自己的法律課稅。</td></tr>
@@ -324,9 +324,10 @@ function feieAmount(foreignEarned,days){return Math.min(foreignEarned,Y2026.feie
 function incomeTaxUS(st,wages,invOrd,pref,foreignInc,foreignTax,foreignEarned=0,feieDays=0){
  const feie=feieDays>0?Math.min(feieAmount(foreignEarned,feieDays),wages,foreignInc):0;
  const agi=wages-feie+invOrd+pref,ti=Math.max(0,agi-Y2026.std[st]);
- const reg=feie>0?regTax(ti+feie,pref,st)-ordTax(feie,st):regTax(ti,pref,st); // §911(f) 堆疊
+ const p=Math.min(pref,ti); // §911(f)(2)(A) 資本利得超額:優惠稅率所得不得超過應稅所得
+ const reg=ti<=0?0:feie>0?Math.max(0,regTax(ti+feie,p,st)-ordTax(feie,st)):regTax(ti,pref,st); // §911(f)(1)(A) 堆疊;無應稅所得則為 0
  foreignTax=foreignInc>0?foreignTax*(foreignInc-feie)/foreignInc:foreignTax;foreignInc-=feie; // §911(d)(6)
- const niit=.038*Math.max(0,Math.min(invOrd+pref,agi-Y2026.niit[st]));
+ const magi=agi+feie,niit=.038*Math.max(0,Math.min(invOrd+pref,magi-Y2026.niit[st])); // §1411(d) MAGI 加回 FEIE
  const limit=ti>0?reg*Math.min(1,foreignInc/ti):0,ftc=Math.min(foreignTax,limit);
  return{feie:Math.round(feie),agi,ti,reg:Math.round(reg),niit:Math.round(niit),limit:Math.round(limit),ftc:Math.round(ftc),total:Math.round(reg-ftc+niit),carry:Math.round(Math.max(0,foreignTax-ftc))};}
 function estateUS(gross,ded,toSpouse,spouse,adjGifts,dsue){
